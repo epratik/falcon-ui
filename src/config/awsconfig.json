@@ -1,0 +1,17 @@
+{
+    "Auth": {
+      "region": "us-west-2",
+      "userPoolId": "us-west-2_hK9f7Dvzt",
+      "userPoolWebClientId": "7dsaq9a3nike41kg0tomfsqmg1",
+      "mandatorySignIn": false,
+      "cookieStorage": {
+        "domain": "localhost",
+        "path": "/",
+        "expires": 365,
+        "secure": true
+      },
+      "redirectSignIn": "http://localhost:3000/",
+      "redirectSignOut": "http://localhost:3000/"
+    }
+  }
+  

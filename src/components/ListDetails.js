@@ -13,20 +13,24 @@ const ListDetails = (props) => {
                 <ModalTitle>Items</ModalTitle>
             </ModalHeader>
             <ModalBody>
-                {props.items.map(item => {
-                    return (
-                        <ol class="list-group list-group-numbered">
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <input class="form-check-input me-1" type="checkbox" value="" aria-label="..." />
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">{ item.description }</div>
-                                    <a href={ item.link }>{ item.link }</a> <br />
-                                </div>
-                                <span class="badge bg-primary rounded-pill">14 Likes</span>
-                            </li>
-                        </ol>
-                    )
-                })}
+                {
+                    <ol className="list-group list-group-numbered">
+                        {
+                            props.items.map(item => {
+                                return (
+                                    <li className="list-group-item d-flex justify-content-between align-items-start" key={item.id}>
+                                        <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                                        <div className="ms-2 me-auto">
+                                            <div className="fw-bold">{item.description}</div>
+                                            <a href={item.link}>{item.link}</a> <br />
+                                        </div>
+                                        <span className="badge bg-primary rounded-pill">14 Likes</span>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ol>
+                }
             </ModalBody>
             <ModalFooter>
                 <Button onClick={props.handleClose}>Close</Button>

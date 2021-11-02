@@ -5,9 +5,9 @@ import Profile from './Profile.js'
 
 const PageLayout = () => {
     return (
-        <div class="container">
-            <div class="row justify-content-md-center">
-                <div class="col-lg-8" style={colStyle}>
+        <div className="container">
+            <div className="row justify-content-md-center">
+                <div className="col-lg-8" style={colStyle}>
                     <Profile/>
                 </div>
             </div>
