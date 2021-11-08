@@ -1,0 +1,5 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.react-autosuggest__input{
+    @extend .form-control,.mb-3
+}
