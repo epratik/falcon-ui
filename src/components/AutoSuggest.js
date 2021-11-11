@@ -14,10 +14,12 @@ const AutoSuggest = (props) => {
     
     // Teach Autosuggest how to calculate suggestions for any given input value.
     const getSuggestions = value => {
-        console.log(value)
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
-  
+        
+        if (props.setParentValue)
+            props.setParentValue(value);
+
         return inputLength === 0 ? [] : listNames.filter(val =>
             val.toLowerCase().slice(0, inputLength) === inputValue
         );

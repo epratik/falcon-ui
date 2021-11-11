@@ -9,28 +9,39 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 import ModalTitle from "react-bootstrap/ModalTitle";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from "yup";
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 
 const CreateList = (props) => {
 
-  const inputRef = React.createRef();
-  const [listNameValue, setListNameValue] = useState('');
+  const tags = [
+    { label: "tag1", value: "tag1" },
+    { label: "tag2", value: "tag2" },
+    { label: "tag3", value: "tag3" }
+  ]
 
-  const setSelectedValue = (value) => {
-    console.log(inputRef)
-    console.log("selected value")
-    console.log(value)
-    setListNameValue(value);
-    inputRef.current.onChange();
+  const [listNameValue, setListNameValue] = useState('');
+  const [errListName, setErrListName] = useState('');
+
+  const clearState = () => {
+    setListNameValue('');
+    props.handleClose();
   }
-  
+
+  const setListName = (value) => {
+    setListNameValue(value);
+    if (listNameValue.length < 4 || listNameValue.length > 20)
+      setErrListName('List name must be 4 to 20 character long.')
+    else
+      setErrListName('');
+  }
+
   const validationSchema = Yup.object().shape({
-    listName: Yup.string()
-      .required("List name is required"),
+    // listName: Yup.string()
+    //   .required("List name is required"),
     listDescription: Yup.string()
       .required("List description is required"),
-    tag: Yup.string()
-      .required("Tag is required"),
+    // tag: Yup.string()
+    //   .required("Tag is required"),
     url: Yup.string()
       .required("Url is required"),
     urlDescription: Yup.string()
@@ -38,8 +49,7 @@ const CreateList = (props) => {
   });
   
   return (
-
-    <Modal show={props.show} onHide={props.handleClose}>
+    <Modal show={props.show} onHide={clearState}>
       <ModalHeader>
         <ModalTitle>Post a link</ModalTitle>
       </ModalHeader>
@@ -53,21 +63,19 @@ const CreateList = (props) => {
             urlDescription: ""
           }}
           validationSchema={validationSchema}
-          onSubmit={values => {
-            // same shape as initial values
-            console.log(values);
+          onSubmit={async (values) => {
           }}
         >
 
           {({ errors, touched, handleChange }) =>
           (
             <Form>
-              <div className="mb-3">
+              <div className="mb-3" >
                 <label for="listName" className="form-label">List Name</label>
-                <AutoSuggest setParentValue={setSelectedValue}></AutoSuggest>
-                <input ref={inputRef} className="form-control" value={listNameValue} onChange={handleChange("listName")} name="listName" aria-describedby="listNameHelp" />
+                <AutoSuggest setParentValue={setListName}></AutoSuggest>
+                {/* <input ref={inputRef} className="form-control" value={listNameValue} onKeyPress={(e)=>console.log(e.key)} onChange={handleChange("listName")} name="listName" aria-describedby="listNameHelp" /> */}
                 <div id="listNameHelp" className="form-text">Your links are added to lists, please specify a list name</div>
-                {touched.listName && errors.listName ? <div className="text-danger"> {errors.listName} </div> : null}
+                {errListName ? <div className="text-danger"> {errListName} </div> : null}
               </div>
               <div className="mb-3">
                 <label for="listDescription" className="form-label">List Description</label>
@@ -76,13 +84,15 @@ const CreateList = (props) => {
                 {touched.listDescription && errors.listDescription ? <div className="text-danger"> {errors.listDescription} </div> : null}
               </div>
               <div className="mb-3">
-                 <label for="tag" className="form-label">Tag</label>
+                <label for="tag" className="form-label">Tag</label>
+                <Field as="select" className="form-control" name="tag">
+                  <option value="Select a Tag">Select</option>
+                  {tags.map((tag) => <option value={tag.value}>{tag.label}</option>)}
+                </Field>
                 {/*<Field className="form-control" name="tag" aria-describedby="tagHelp" />
                 {touched.tag && errors.tag ? <div className="text-danger"> {errors.tag} </div> : null} */}
-                <div className="mb-3">
-                  <AutoSuggest placeholder=""></AutoSuggest>
-                </div>
                 <div id="tagHelp" className="form-text">Select a tag name that best describes your list</div>
+                {touched.tag && errors.tag ? <div className="text-danger"> {errors.tag} </div> : null}
               </div>
               <div className="mb-3">
                 <label for="url" className="form-label">URL</label>

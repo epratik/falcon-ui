@@ -15,6 +15,16 @@ function Main(props) {
     const [isLoggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
+        async function getUser() {
+          const user = await Amplify.Auth.currentAuthenticatedUser()
+          if (user) {
+              setLoggedIn(true);
+          }
+        }
+        getUser();
+    }, []);
+    
+    useEffect(() => {
         Amplify.configure(awsconfig)
         Auth.configure({ oauth: awsauth })
         Hub.listen('auth', ({ payload: { event, data } }) => {
@@ -43,7 +53,7 @@ function Main(props) {
                     </Nav>
                     {!isLoggedIn && <Button className="btn btn-primary" onClick={() => Auth.federatedSignIn()}>Sign In</Button>}
                     {isLoggedIn && <Button className="btn btn-primary" onClick={() => Auth.signOut()}>Sign Out</Button>}
-                </Container>
+                </Container> 
             </Navbar>
         </div>
     );

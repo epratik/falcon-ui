@@ -10,21 +10,24 @@ const ListCards = (props) => {
     const handleShow = () => setShow(true);
 
     return (
-        props.items.map((list) => {
-            return(
-            <div key={list.id}>
-                <div className="card bg-light mb-3" style={{ "maxWidth": "18rem" }}>
-                    <div className="card-header">{list.name}</div>
-                    <div className="card-body">
-                        <ListDetails items={listItems} show={show} handleClose={handleClose} />
-                        <h5 className="card-title">{list.views} Views</h5>
-                        <p className="card-text">{list.description}</p>
-                        <Button className="btn btn-secondary" onClick={handleShow}>Show List</Button>
-                    </div>
-                </div>
-                </div>
-            )
-        })
+        <div className="row">{
+            props.items.map((list) => {
+                return (
+                    <section class="col-lg-3 ms-2" key={list.id}>
+                        <div className="card bg-light mb-3" style={{ "maxWidth": "18rem" }}>
+                            <div className="card-header">{list.name}</div>
+                            <div className="card-body">
+                                <ListDetails items={listItems} show={show} handleClose={handleClose} />
+                                <h5 className="card-title">{list.views} Views</h5>
+                                <p className="card-text">{list.description}</p>
+                                <Button className="btn btn-secondary" onClick={handleShow}>Show List</Button>
+                            </div>
+                        </div>
+                    </section>
+                )
+            })
+        }
+        </div>
        
     )
 }
