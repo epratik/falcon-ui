@@ -7,7 +7,7 @@
       "openid",
       "aws.cognito.signin.user.admin"
     ],
-    "redirectSignIn": "http://localhost:3000/",
-    "redirectSignOut": "http://localhost:3000/",
+    "redirectSignIn": "https://gp-dev-s3-reactui.s3.us-west-2.amazonaws.com/index.html",
+    "redirectSignOut": "https://gp-dev-s3-reactui.s3.us-west-2.amazonaws.com/index.html",
     "responseType": "code"
   }

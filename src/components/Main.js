@@ -36,6 +36,8 @@ function Main(props) {
                     break
                 case 'signOut':
                     console.log('sign out')
+                    setLoggedIn(false);
+                    props.history.push('/')
                     // this.setState({ user: null })
                     break
                 default:
