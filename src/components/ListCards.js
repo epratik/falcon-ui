@@ -17,7 +17,7 @@ const ListCards = (props) => {
                         <div className="card bg-light mb-3" style={{ "maxWidth": "18rem" }}>
                             <div className="card-header">{list.name}</div>
                             <div className="card-body">
-                                <ListDetails items={listItems} show={show} handleClose={handleClose} />
+                                <ListDetails items={listItems} isReadOnly={false} show={show} handleClose={handleClose} />
                                 <h5 className="card-title">{list.views} Views</h5>
                                 <p className="card-text">{list.description}</p>
                                 <Button className="btn btn-secondary" onClick={handleShow}>Show List</Button>

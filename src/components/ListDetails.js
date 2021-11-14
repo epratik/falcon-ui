@@ -19,7 +19,8 @@ const ListDetails = (props) => {
                             props.items.map(item => {
                                 return (
                                     <li className="list-group-item d-flex justify-content-between align-items-start" key={item.id}>
-                                        <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />
+                                        {!props.isReadOnly &&
+                                            <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />}
                                         <div className="ms-2 me-auto">
                                             <div className="fw-bold">{item.description}</div>
                                             <a href={item.link}>{item.link}</a> <br />
@@ -34,7 +35,7 @@ const ListDetails = (props) => {
             </ModalBody>
             <ModalFooter>
                 <Button onClick={props.handleClose}>Close</Button>
-                <Button className="btn btn-danger">Delete</Button>
+                {!props.isReadOnly && <Button className="btn btn-danger">Delete</Button>}
             </ModalFooter>
         </Modal>
     )

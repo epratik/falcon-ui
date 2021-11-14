@@ -82,7 +82,6 @@ const Profile = () => {
 
           </ListCards>
         </Tab>
-        <Tab eventKey="search" title="Search"></Tab>
       </Tabs>
     </div>
   );

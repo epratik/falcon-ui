@@ -106,14 +106,14 @@ const CreateList = (props) => {
                 <div id="urlDescriptionHelp" className="form-text">What is the link about?</div>
                 {touched.urlDescription && errors.urlDescription ? <div className="text-danger"> {errors.urlDescription}</div> : null}
               </div>
-              <Button type="submit">Save</Button>
+              <div className="modal-footer">
+                <Button type="submit">Save</Button>
+                <Button className="ms-2 btn btn-danger" onClick={props.handleClose}>Cancel</Button>
+              </div>
             </Form>
           )}
         </Formik>
       </ModalBody>
-      <ModalFooter>
-        <Button onClick={props.handleClose}>Cancel</Button>
-      </ModalFooter>
     </Modal>
 
   )
