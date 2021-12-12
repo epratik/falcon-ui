@@ -3,9 +3,11 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import { Button } from 'bootstrap'
 import profilepic from '../images/profilepic.png'
+import imgNotAvailable from '../images/imgNotAvailable.png'
 import {useState} from 'react'
 import ListDetails from './ListDetails';
 import listItems from '../data/items.json'
+import { likePost } from "../service/PostService.js";
 
 const Post = (props) => {
 
@@ -24,9 +26,11 @@ const Post = (props) => {
             setfolOrUnFol('Follow');
     }
 
-    const likeOnClick = () => {
+    const likeOnClick = (props) => {
         //call api
         if (likeOrUnlike === 'Like') {
+            likePost(props.item.post.postId);
+            props.item.post.likes++;
             setLikeOrUnlike('Unlike');
         }
         else {
@@ -36,29 +40,36 @@ const Post = (props) => {
 
     return (
         <div>
-            <div className="card mb-1 mt-2" style={{ width: "30rem",backgroundColor:"#E4E4E4" }}>
-                <div className="d-flex">
+            <div className="card mb-1 mt-2 mx-auto border-light" style={{ width: "25rem",backgroundColor:"#E6E6E6" }}>
+                <div className="">
                     <img
                         src={profilepic}
-                        alt={props.item.name}
-                        className="me-3 rounded-circle"
+                        //alt={props.item.name}
+                        alt="Pratik Pednekar"
+                        className="me-3 mt-1 rounded-circle"
                         style={{ width: '40px', height: '40px' }}
                     />
+                  
+                    <medium className="fs-5"> {props.item.post.userName}</medium>
+                    <small className="text-muted"> {props.item.post.date}</small>
+                    
                     <div>
-                        <h5 className="text-start">
-                            {props.item.name}
-                            <small className="text-muted"> {props.item.date}</small>
-                        </h5>
-                        <p className="text-start">
-                            {props.item.listName} <br />
-                            <a href={props.item.itemLink}>{props.item.itemLink}</a> <br />
-                            {/* <small className="text-muted"> check the full list here </small>
-                            <a href={props.item.listLink}>{props.item.listName}</a><br /> */}
+                        
+                        <p className="ms-2">
+                            Part of {props.item.post.listName} <br />
+                        </p>
+                            <img
+                                src={(props.item.preview && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
+                                style={{ width: '25rem', height:'15rem' }}
+                            />
+                            <br />
+                        <p className="ms-2">
+                            <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >{props.item.post.urlDescription}</a> <br />
                             <button type="button" className="btn btn-primary mt-2" onClick={followOnClick}> {folOrUnFol} </button>
-                            <button type="button" className="btn btn-primary position-relative mt-2 ms-2" onClick={likeOnClick}>
+                            <button type="button" className="btn btn-primary position-relative mt-2 ms-2" onClick={()=>likeOnClick(props)}>
                                 {likeOrUnlike}
                                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    99+
+                                    {props.item.post.likes}
                                     <span className="visually-hidden">unread messages</span>
                                 </span>
                             </button>

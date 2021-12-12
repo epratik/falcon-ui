@@ -1,0 +1,5 @@
+{
+    "baseUrl": "http://ec2-52-89-220-217.us-west-2.compute.amazonaws.com/api",
+    "getPosts":"/post",
+    "patchPosts":"/post"
+}
