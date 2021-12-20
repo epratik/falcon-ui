@@ -67,7 +67,7 @@ const Profile = () => {
         className="mb-3 mt-2 sticky-top"
         style={{ backgroundColor: "#FFFFFF", width:"50rem"}}
       >
-        <Tab eventKey="topContent" title="Top Content">
+        <Tab eventKey="topContent" title="Top Content" style={{ width: "50rem" }}>
         <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
           {
             tags.tags.map(item => {
@@ -95,10 +95,10 @@ const Profile = () => {
           </InfiniteScroll>
           </div>
         </Tab>
-        <Tab eventKey="followedContent" title="Followed Content">
+        <Tab eventKey="followedContent" title="Followed Content" style={{ width: "50rem" }}>
 
         </Tab>
-        <Tab eventKey="myList" title="My Lists">
+        <Tab eventKey="myList" title="My Lists" style={{ width: "50rem" }}>
           <ListCards items={mylists}>
 
           </ListCards>

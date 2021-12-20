@@ -10,8 +10,8 @@
         "expires": 365,
         "secure": true
       },
-      "redirectSignIn": "https://gp-dev-s3-reactui.s3.us-west-2.amazonaws.com/index.html",
-      "redirectSignOut": "https://gp-dev-s3-reactui.s3.us-west-2.amazonaws.com/index.html"
+      "redirectSignIn": "https://greply.live/index.html",
+      "redirectSignOut": "https://greply.live/index.html"
     }
   }
   
