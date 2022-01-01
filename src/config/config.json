@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://api.greply.live/api",
-    "getPosts":"/post",
+    "baseUrl": "http://ec2-52-89-220-217.us-west-2.compute.amazonaws.com/api",
+    "topPosts":"/posts/top-posts",
     "patchPosts":"/post"
 }

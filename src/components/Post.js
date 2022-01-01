@@ -7,7 +7,7 @@ import imgNotAvailable from '../images/imgNotAvailable.png'
 import {useState} from 'react'
 import ListDetails from './ListDetails';
 import listItems from '../data/items.json'
-import { likePost } from "../service/PostService.js";
+import { likePost, unlikePost } from "../service/PostService.js";
 
 const Post = (props) => {
 
@@ -34,6 +34,8 @@ const Post = (props) => {
             setLikeOrUnlike('Unlike');
         }
         else {
+            unlikePost(props.item.post.postId);
+            props.item.post.likes--;
             setLikeOrUnlike('Like');
         }
     }

@@ -38,9 +38,9 @@ const Profile = () => {
   }, [tag]);
 
   return (
-    <div  style={{ width:'50rem'}}>
+    <div>
       <div className="header">
-      <div className="card sticky-top mt-2" style={{ width: "50rem" }}>
+      <div className="card sticky-top mt-2" >
         <div className="d-flex">
           <img
             src={profilepic}
@@ -65,9 +65,9 @@ const Profile = () => {
         defaultActiveKey="topContent"
         id="uncontrolled-tab-example"
         className="mb-3 mt-2 sticky-top"
-        style={{ backgroundColor: "#FFFFFF", width:"50rem"}}
+        style={{ backgroundColor: "#FFFFFF"}}
       >
-        <Tab eventKey="topContent" title="Top Content" style={{ width: "50rem" }}>
+        <Tab eventKey="topContent" title="Top Content">
         <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
           {
             tags.tags.map(item => {
@@ -95,10 +95,10 @@ const Profile = () => {
           </InfiniteScroll>
           </div>
         </Tab>
-        <Tab eventKey="followedContent" title="Followed Content" style={{ width: "50rem" }}>
+        <Tab eventKey="followedContent" title="Followed Content" >
 
         </Tab>
-        <Tab eventKey="myList" title="My Lists" style={{ width: "50rem" }}>
+        <Tab eventKey="myList" title="My Lists" >
           <ListCards items={mylists}>
 
           </ListCards>
