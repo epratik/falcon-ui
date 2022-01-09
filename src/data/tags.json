@@ -1,4 +1,9 @@
 {
-    "tags":["vlogs","interviewsQ/A","tutorials","productreviews","testimonials","animation","events","brandfilms","unboxing",
-    "educational","livestreaming","recipe","videogames","collections","comedy","parodies","pranks","news","politics","tech"]
+    "tags":["top-content","movies/series","docuseries","comedy","startup","technology","life","travel",
+    "politics","education","health","story","writing","self-improvement","business","music", "food", "art"],
+    "movies/series":["action","comedy","drama","fantasy","horror","mystery","romance","thriller"],
+    "docuseries":["observatory","expository","participatory"],
+    "comedy":["shows","standup"],
+    "business":["startup", "training"],
+    "education":["finance","how-to","lectures"]
 }

@@ -10,17 +10,25 @@ import ModalTitle from "react-bootstrap/ModalTitle";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from "yup";
 import { useState, useRef, useEffect, useCallback } from 'react'
+import tags from "../data/tags.json";
 
 const CreateList = (props) => {
 
-  const tags = [
-    { label: "tag1", value: "tag1" },
-    { label: "tag2", value: "tag2" },
-    { label: "tag3", value: "tag3" }
-  ]
-
   const [listNameValue, setListNameValue] = useState('');
   const [errListName, setErrListName] = useState('');
+  const [tag, setTag] = useState('');
+  const [subTags, setSubTag] = useState([]);
+  const [isSubTagDisabled, setSubTagDisabled] = useState(true);
+
+  const onTagSelect = (newTag) => {
+    console.log(tags[newTag]);
+    if (tags[newTag]) {
+      setSubTagDisabled(false);
+      setSubTag(tags[newTag]);
+    }
+    else
+      setSubTagDisabled(true);
+  }
 
   const clearState = () => {
     setListNameValue('');
@@ -38,10 +46,10 @@ const CreateList = (props) => {
   const validationSchema = Yup.object().shape({
     // listName: Yup.string()
     //   .required("List name is required"),
-    listDescription: Yup.string()
-      .required("List description is required"),
-    // tag: Yup.string()
-    //   .required("Tag is required"),
+    // listDescription: Yup.string()
+    //   .required("List description is required"),
+    tag: Yup.string()
+      .required("Tag is required"),
     url: Yup.string()
       .required("Url is required"),
     urlDescription: Yup.string()
@@ -57,43 +65,35 @@ const CreateList = (props) => {
         <Formik
           initialValues={{
             listName: "",
-            listDescription: "",
             tag: "",
+            subTag: "",
             url: "",
             urlDescription: ""
           }}
+          onTagSelect={onTagSelect}
           validationSchema={validationSchema}
           onSubmit={async (values) => {
+            values.listName = listNameValue;
+            console.log(values);
           }}
         >
 
-          {({ errors, touched, handleChange }) =>
+          {({ errors, touched, handleChange, submitForm }) =>
           (
             <Form>
               <div className="mb-3" >
                 <label for="listName" className="form-label">List Name</label>
-                <AutoSuggest setParentValue={setListName}></AutoSuggest>
+                <AutoSuggest setParentValue={setListName} ></AutoSuggest>
                 {/* <input ref={inputRef} className="form-control" value={listNameValue} onKeyPress={(e)=>console.log(e.key)} onChange={handleChange("listName")} name="listName" aria-describedby="listNameHelp" /> */}
-                <div id="listNameHelp" className="form-text">Your links are added to lists, please specify a list name</div>
+                <div id="listNameHelp" className="form-text">Type to select an existing list or create a new one.</div>
                 {errListName ? <div className="text-danger"> {errListName} </div> : null}
               </div>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label for="listDescription" className="form-label">List Description</label>
                 <Field className="form-control" name="listDescription" aria-describedby="listDescriptionHelp" />
                 <div id="listDescriptionHelp" className="form-text">What kind of content is present in this list?</div>
                 {touched.listDescription && errors.listDescription ? <div className="text-danger"> {errors.listDescription} </div> : null}
-              </div>
-              <div className="mb-3">
-                <label for="tag" className="form-label">Tag</label>
-                <Field as="select" className="form-control" name="tag">
-                  <option value="Select a Tag">Select</option>
-                  {tags.map((tag) => <option value={tag.value}>{tag.label}</option>)}
-                </Field>
-                {/*<Field className="form-control" name="tag" aria-describedby="tagHelp" />
-                {touched.tag && errors.tag ? <div className="text-danger"> {errors.tag} </div> : null} */}
-                <div id="tagHelp" className="form-text">Select a tag name that best describes your list</div>
-                {touched.tag && errors.tag ? <div className="text-danger"> {errors.tag} </div> : null}
-              </div>
+              </div> */}
               <div className="mb-3">
                 <label for="url" className="form-label">URL</label>
                 <Field className="form-control" name="url" aria-describedby="urlHelp" />
@@ -101,9 +101,33 @@ const CreateList = (props) => {
                 {touched.url && errors.url ? <div className="text-danger">{errors.url} </div> : null}
               </div>
               <div className="mb-3">
+                <label for="tag" className="form-label">Category</label>
+                <Field as="select" onChange={(event) => { onTagSelect(event.target.value);handleChange(event) }} className="form-control" name="tag">
+                <option value="Select a category">Select</option>
+                  {
+                    tags.tags.map((tag) =>
+                      <option value={tag}>{tag}</option>
+                    )
+                  }
+                </Field>
+                {/* <Field placeholder="" className="form-control" name="tag" aria-describedby="tagHelp" /> */}
+                <div id="tagHelp" className="form-text">Select a relevant category for your post.</div>
+                {touched.tag && errors.tag ? <div className="text-danger"> {errors.tag} </div> : null}
+              </div>
+              <div className="mb-3">
+                <label for="tag" className="form-label">Sub Category</label>
+                <Field as="select" disabled={isSubTagDisabled} onChange={(event)=>handleChange(event)} className="form-control" name="subTag">
+                  <option value="Select a sub category">Select</option>
+                  {subTags.map((subTag) => <option value={subTag}>{subTag}</option>)}
+                </Field>
+                {/* <Field placeholder="" className="form-control" name="tag" aria-describedby="tagHelp" /> */}
+                <div id="tagHelp" className="form-text">Select a sub category for your post.</div>
+                {touched.subTag && errors.subTag ? <div className="text-danger"> {errors.subTag} </div> : null}
+              </div>
+              <div className="mb-3">
                 <label for="urlDescription" className="form-label">URL Description</label>
                 <Field className="form-control" name="urlDescription" aria-describedby="urlDescriptionHelp" />
-                <div id="urlDescriptionHelp" className="form-text">What is the link about?</div>
+                <div id="urlDescriptionHelp" className="form-text">Short description about this url.</div>
                 {touched.urlDescription && errors.urlDescription ? <div className="text-danger"> {errors.urlDescription}</div> : null}
               </div>
               <div className="modal-footer">

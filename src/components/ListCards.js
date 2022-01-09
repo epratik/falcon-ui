@@ -1,19 +1,31 @@
 import React from 'react'
 import ListDetails from './ListDetails';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { getLists } from "../service/ListService.js";
 import listItems from '../data/items.json'
+import mylists from '../data/mylists.json'
 
 const ListCards = (props) => {
     const [show, setShow] = useState(false);
+    const [lists, setLists] = useState([]);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    useEffect(() => {
+        getLists().then(res => {
+            if (res && res.length > 0) {
+                console.log(res)
+                setLists(res);
+            }
+        })
+    }, [])
+
     return (
         <div className="row">{
-            props.items.map((list) => {
+            lists.map((list) => {
                 return (
-                    <section class="col-lg-3 ms-2" key={list.id}>
+                    <section class="col-lg-3 ms-2" key={list.listId}>
                         <div className="card bg-light mb-3" style={{ "maxWidth": "18rem" }}>
                             <div className="card-header">{list.name}</div>
                             <div className="card-body">

@@ -1,13 +1,12 @@
 import React from 'react'
-// import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import { Button } from 'bootstrap'
 import profilepic from '../images/profilepic.png'
 import imgNotAvailable from '../images/imgNotAvailable.png'
 import {useState} from 'react'
 import ListDetails from './ListDetails';
 import listItems from '../data/items.json'
 import { likePost, unlikePost } from "../service/PostService.js";
+import { getAvatar } from "../service/AvatarService.js";
 
 const Post = (props) => {
 
@@ -45,9 +44,9 @@ const Post = (props) => {
             <div className="card mb-1 mt-2 mx-auto border-light" style={{ width: "25rem",backgroundColor:"#E6E6E6" }}>
                 <div className="">
                     <img
-                        src={profilepic}
+                        src={getAvatar(props.item.post.userName)}
                         //alt={props.item.name}
-                        alt="Pratik Pednekar"
+                        alt={props.item.post.userName}
                         className="me-3 mt-1 rounded-circle"
                         style={{ width: '40px', height: '40px' }}
                     />
