@@ -40,3 +40,11 @@ export async function unlikePost(postId) {
         }
     }, { headers: await getToken() });
 }
+
+export async function postAUrl(postRecord) {
+    const resp = await axios.post(config.baseUrl + config.createPost, postRecord,
+        { headers: await getToken() }
+    );
+
+    return resp.status;
+}

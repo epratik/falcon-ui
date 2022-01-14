@@ -18,3 +18,15 @@ export async function getLists() {
 
     return resp.data;
 }
+
+export async function postList(listName, description) {
+    const resp = await axios.post(config.baseUrl + config.postList,
+        {
+            name: listName,
+            description: description
+        },
+        { headers: await getToken() }
+    );
+
+    return resp.data;
+}

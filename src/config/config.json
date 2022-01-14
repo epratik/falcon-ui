@@ -2,5 +2,7 @@
     "baseUrl": "http://ec2-52-89-220-217.us-west-2.compute.amazonaws.com/api",
     "topPosts":"/posts/top-posts",
     "getLists":"/lists",
-    "patchPosts":"/post"
+    "postList":"/lists",
+    "patchPosts":"/posts",
+    "createPost":"/posts"
 }

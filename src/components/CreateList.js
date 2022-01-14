@@ -11,6 +11,8 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from "yup";
 import { useState, useRef, useEffect, useCallback } from 'react'
 import tags from "../data/tags.json";
+import { postList } from '../service/ListService';
+import { postAUrl } from '../service/PostService';
 
 const CreateList = (props) => {
 
@@ -74,7 +76,10 @@ const CreateList = (props) => {
           validationSchema={validationSchema}
           onSubmit={async (values) => {
             values.listName = listNameValue;
+            values.listId = (await postList(listNameValue, '')).value;
             console.log(values);
+            const status = await postAUrl(values);
+            console.log(status);
           }}
         >
 
