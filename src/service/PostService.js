@@ -36,7 +36,7 @@ export async function likePost(postId) {
     const resp = await axios.patch(config.baseUrl + config.patchPosts, {
         patchType: "Like",
         requestBody: {
-            postId: postId
+            postId: Number(postId)
         }
     }, { headers: await getToken() });
 }
@@ -45,9 +45,21 @@ export async function unlikePost(postId) {
     const resp = await axios.patch(config.baseUrl + config.patchPosts, {
         patchType: "Unlike",
         requestBody: {
-            postId: postId
+            postId: Number(postId)
         }
     }, { headers: await getToken() });
+}
+
+
+export async function deactivatePost(postId) {
+    console.log('axios called')
+    const resp = await axios.patch(config.baseUrl + config.patchPosts, {
+        patchType: "Deactivate",
+        requestBody: {
+            postId: Number(postId)
+        }
+    }, { headers: await getToken() });
+    console.log('out of axios')
 }
 
 export async function postAUrl(postRecord) {

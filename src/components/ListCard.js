@@ -24,19 +24,17 @@ const ListCard = (props) => {
     }
 
     return (
-        <div>
-            <section class="col-lg-3 ms-2" key={props.list.listId}>
-                <div className="card bg-light mb-3" style={{ "maxWidth": "18rem" }}>
-                    <div className="card-header">{props.list.name}</div>
-                    <div className="card-body">
-                        <ListDetails items={items} isReadOnly={false} show={show} handleClose={handleClose} />
-                        <h5 className="card-title">{props.list.views} Views</h5>
-                        <p className="card-text">{props.list.description}</p>
-                        <Button className="btn btn-secondary" onClick={()=>onClickShowLists(props.list.listId)}>Show List</Button>
-                    </div>
+        <section class="col-lg-3 ms-2" key={props.list.listId}>
+            <div className="card bg-light mb-3" style={{ "maxWidth": "18rem" }}>
+                <div className="card-header">{props.list.name}</div>
+                <div className="card-body">
+                    <ListDetails items={items} isReadOnly={false} show={show} handleClose={handleClose} />
+                    <h5 className="card-title">{props.list.views} Views</h5>
+                    <p className="card-text">{props.list.description}</p>
+                    <Button className="btn btn-secondary" onClick={() => onClickShowLists(props.list.listId)}>Show List</Button>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     )
 }
 

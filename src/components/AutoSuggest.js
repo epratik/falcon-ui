@@ -1,17 +1,21 @@
 import React from 'react'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Autosuggest from 'react-autosuggest';
+import { getLists } from '../service/ListService.js';
 import theme from '../css/AutoSuggest.scss'
 
 const AutoSuggest = (props) => {
     
     const [value, setValue] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [listNames, setListNames] = useState([]);
+  
+    useEffect(() => {
+        getLists().then((res) => {
+            setListNames(Array.from(res, item => item.name));
+        })
+    }, []);
 
-    const listNames = [
-        "list1", "list2", "list3"
-    ];
-    
     // Teach Autosuggest how to calculate suggestions for any given input value.
     const getSuggestions = value => {
         const inputValue = value.trim().toLowerCase();

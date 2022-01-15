@@ -2,27 +2,40 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import profilepic from '../images/profilepic.png'
 import imgNotAvailable from '../images/imgNotAvailable.png'
-import {useState} from 'react'
+import { useState, useEffect } from 'react';
 import ListDetails from './ListDetails';
 import listItems from '../data/items.json'
 import { likePost, unlikePost } from "../service/PostService.js";
+import { follow, unfollow } from "../service/UserService.js";
 import { getAvatar } from "../service/AvatarService.js";
+import { getTokenAttributes } from "../service/TokenService";
 
 const Post = (props) => {
 
     const [show, setShow] = useState(false);
+    const [loggedInUserId, setUserId] = useState(0);
     // const [likeCount, setLikeCount] = useState('Follow');
     const [folOrUnFol, setfolOrUnFol] = useState('Follow');
     const [likeOrUnlike, setLikeOrUnlike] = useState('Like');
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const followOnClick = () => {
+    // useEffect(() => {
+    //     getTokenAttributes().then((att) => {
+    //         console.log(att);
+    //     });
+    // }, []);
+    
+    const followOnClick = (props) => {
         //call api
-        if (folOrUnFol === 'Follow')
+        if (folOrUnFol === 'Follow') {
             setfolOrUnFol('Unfollow');
-        else
+            follow(props.item.post.userId)
+        }
+        else {
             setfolOrUnFol('Follow');
+            unfollow(props.item.post.userId)
+        }
     }
 
     const likeOnClick = (props) => {
@@ -66,7 +79,7 @@ const Post = (props) => {
                             <br />
                         <p className="ms-2">
                             <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >{props.item.post.urlDescription}</a> <br />
-                            <button type="button" className="btn btn-primary mt-2" onClick={followOnClick}> {folOrUnFol} </button>
+                            <button type="button" className="btn btn-primary mt-2" onClick={()=>followOnClick(props)}> {folOrUnFol} </button>
                             <button type="button" className="btn btn-primary position-relative mt-2 ms-2" onClick={()=>likeOnClick(props)}>
                                 {likeOrUnlike}
                                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

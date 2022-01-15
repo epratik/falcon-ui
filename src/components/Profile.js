@@ -66,15 +66,15 @@ const Profile = () => {
         </Tab>
         <Tab eventKey="followedContent" title="Followed Content"></Tab>
         <Tab eventKey="myList" title="My Lists">
-          {
-            lists.map((list) => {
-              return (
-                <div className="row">
+          <div className="row">
+            {
+              lists.map((list) => {
+                return (
                   <ListCard list={list}></ListCard>
-                </div>
-              )
-            })
-          }
+                )
+              })
+            }
+          </div>
         </Tab>
       </Tabs>
     </div>
