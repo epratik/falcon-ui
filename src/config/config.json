@@ -4,5 +4,6 @@
     "getLists":"/lists",
     "postList":"/lists",
     "patchPosts":"/posts",
-    "createPost":"/posts"
+    "createPost":"/posts",
+    "getPostsForAList":"/lists/id/posts"
 }

@@ -18,14 +18,14 @@ const ListDetails = (props) => {
                         {
                             props.items.map(item => {
                                 return (
-                                    <li className="list-group-item d-flex justify-content-between align-items-start" key={item.id}>
+                                    <li className="list-group-item d-flex justify-content-between align-items-start" key={item.postId}>
                                         {!props.isReadOnly &&
                                             <input className="form-check-input me-1" type="checkbox" value="" aria-label="..." />}
                                         <div className="ms-2 me-auto">
-                                            <div className="fw-bold">{item.description}</div>
-                                            <a href={item.link}>{item.link}</a> <br />
+                                            <div className="fw-bold">{item.urlDescription}</div>
+                                            <a href={item.url}>{item.url}</a> <br />
                                         </div>
-                                        <span className="badge bg-primary rounded-pill">14 Likes</span>
+                                        <span className="badge bg-primary rounded-pill">{item.likes} Likes</span>
                                     </li>
                                 )
                             })

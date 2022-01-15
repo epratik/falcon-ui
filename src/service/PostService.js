@@ -23,6 +23,15 @@ export async function getPosts(offset, tag) {
     return resp.data;
 }
 
+export async function getPostsForAList(listId) {
+    // console.log(listId)
+    const resp = await axios.get(config.baseUrl + config.getPostsForAList.replace('id', listId.toString()), {
+        headers: await getToken()
+    });
+
+    return resp.data;
+}
+
 export async function likePost(postId) {
     const resp = await axios.patch(config.baseUrl + config.patchPosts, {
         patchType: "Like",

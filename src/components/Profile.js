@@ -1,34 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import CreateList from "./CreateList.js";
-import ListCards from "./ListCards.js";
+import ListCard from "./ListCard.js";
 import { Button, Tab, Tabs } from "react-bootstrap";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Post from "./Post";
-import page1 from "../data.json";
-import page2 from "../page2.json";
-import mylists from "../data/mylists.json";
-import tags from "../data/tags.json";
-import profilepic from "../images/profilepic.png";
 import { getPosts } from "../service/PostService.js";
 import { getTokenAttributes } from "../service/TokenService";
 import { getAvatar } from "../service/AvatarService.js";
 import TopContent from "./TopContent.js";
+import { getLists } from "../service/ListService.js";
 
 const Profile = () => {
+  const [lists, setLists] = useState([]);
   const [name, setName] = useState("");
   const [show, setShow] = useState(false);
-  const [offset, setOffset] = useState(0);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [topPosts, setTopPosts] = useState({ content: [] });
-  const [tag, setTag] = useState("");
-  const [tabKey, setTabKey] = useState("topContent");
-
-  const onTagChange = (newTag) => {
-    setTag(newTag);
-    setOffset(0);
-  };
 
   useEffect(() => {
     getTokenAttributes().then((att) => {
@@ -37,15 +23,13 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    //get data from axios
-    //use second argument [] to hold variables on whose change the hook should run again.
-    getPosts(offset, tag).then((res) => {
-      if (res && res.content) {
-        setTopPosts(res);
-        setOffset(res.content.length);
+    console.log('list effect called')
+    getLists().then(res => {
+      if (res && res.length > 0) {
+        setLists(res);
       }
-    });
-  }, [tag]);
+    })
+  }, []);
 
   return (
     <div>
@@ -81,8 +65,16 @@ const Profile = () => {
           <TopContent></TopContent>
         </Tab>
         <Tab eventKey="followedContent" title="Followed Content"></Tab>
-        <Tab eventKey="myList" title="My Lists" onSelect>
-          <ListCards></ListCards>
+        <Tab eventKey="myList" title="My Lists">
+          {
+            lists.map((list) => {
+              return (
+                <div className="row">
+                  <ListCard list={list}></ListCard>
+                </div>
+              )
+            })
+          }
         </Tab>
       </Tabs>
     </div>
