@@ -1,30 +1,34 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import profilepic from '../images/profilepic.png'
 import imgNotAvailable from '../images/imgNotAvailable.png'
 import { useState, useEffect } from 'react';
 import ListDetails from './ListDetails';
-import listItems from '../data/items.json'
 import { likePost, unlikePost } from "../service/PostService.js";
 import { follow, unfollow } from "../service/UserService.js";
 import { getAvatar } from "../service/AvatarService.js";
-import { getTokenAttributes } from "../service/TokenService";
+import { getPostsForAList } from "../service/PostService.js";
+import { updateViews } from "../service/ListService.js";
 
 const Post = (props) => {
 
     const [show, setShow] = useState(false);
-    const [loggedInUserId, setUserId] = useState(0);
-    // const [likeCount, setLikeCount] = useState('Follow');
+    const [items, setItems] = useState([])
     const [folOrUnFol, setfolOrUnFol] = useState('Follow');
     const [likeOrUnlike, setLikeOrUnlike] = useState('Like');
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    
+    const getPosts = (listId) => {
+        getPostsForAList(listId).then(res => {
+            setItems(res);
+        })
+    }
 
-    // useEffect(() => {
-    //     getTokenAttributes().then((att) => {
-    //         console.log(att);
-    //     });
-    // }, []);
+    const onClickShowList = (listId) => {
+        handleShow();
+        getPosts(listId);
+        updateViews(listId);
+    }
     
     const followOnClick = (props) => {
         //call api
@@ -79,7 +83,7 @@ const Post = (props) => {
                             <br />
                         <p className="ms-2">
                             <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >{props.item.post.urlDescription}</a> <br />
-                            <button type="button" className="btn btn-primary mt-2" onClick={()=>followOnClick(props)}> {folOrUnFol} </button>
+                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary mt-2" onClick={()=>followOnClick(props)}> {folOrUnFol} </button>
                             <button type="button" className="btn btn-primary position-relative mt-2 ms-2" onClick={()=>likeOnClick(props)}>
                                 {likeOrUnlike}
                                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -87,8 +91,8 @@ const Post = (props) => {
                                     <span className="visually-hidden">unread messages</span>
                                 </span>
                             </button>
-                            <ListDetails items={listItems} isReadOnly={true} show={show} handleClose={handleClose} />
-                            <button type="button" className="btn btn-secondary ms-5 mt-2" onClick={handleShow}>Show List</button>
+                            <button type="button" className="btn btn-secondary ms-5 mt-2" onClick={() => onClickShowList(props.item.post.listId)}>Show List</button>
+                            <ListDetails items={items} isReadOnly={true} show={show} handleClose={handleClose} />
                         </p>
                     </div>
                 </div>

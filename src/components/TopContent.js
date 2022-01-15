@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Post from "./Post";
 import { getPosts } from "../service/PostService.js";
 import tags from "../data/tags.json";
+import { getUserId } from "../service/TokenService";
 
 const TopContent = () => {
   const [offset, setOffset] = useState(0);
@@ -11,6 +12,7 @@ const TopContent = () => {
   const [topPosts, setTopPosts] = useState({ content: [] });
   const [tag, setTag] = useState("");
   const [subTag, setSubTag] = useState("");
+  const [userId, setUserId] = useState(0);
 
   const onBackClick = () => {
     setSubTag("");
@@ -50,6 +52,12 @@ const TopContent = () => {
     console.log('triggering getTopContent from useeffect');
     getTopContent(offset, tag, subTag);
   }, [subTag]);
+
+  useEffect(() => {
+    getUserId().then((val) => {
+      setUserId(val);
+    });
+  }, []);
 
   return (
     <div>
@@ -100,7 +108,7 @@ const TopContent = () => {
           {topPosts &&
             topPosts.content.map((item) => {
               return (
-                <Post item={item} key={item.post.postId}>
+                <Post userId={userId} item={item} key={item.post.postId}>
                   {" "}
                 </Post>
               );

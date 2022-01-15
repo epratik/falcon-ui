@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import CreateList from "./CreateList.js";
 import ListCard from "./ListCard.js";
 import { Button, Tab, Tabs } from "react-bootstrap";
-import { getPosts } from "../service/PostService.js";
 import { getTokenAttributes } from "../service/TokenService";
 import { getAvatar } from "../service/AvatarService.js";
 import TopContent from "./TopContent.js";
+import FollowedContent from "./FollowedContent.js";
 import { getLists } from "../service/ListService.js";
 
 const Profile = () => {
@@ -64,7 +64,9 @@ const Profile = () => {
         <Tab eventKey="topContent" title="Top Content">
           <TopContent></TopContent>
         </Tab>
-        <Tab eventKey="followedContent" title="Followed Content"></Tab>
+        <Tab eventKey="followedContent" title="Followed Content">
+          <FollowedContent></FollowedContent>
+        </Tab>
         <Tab eventKey="myList" title="My Lists">
           <div className="row">
             {

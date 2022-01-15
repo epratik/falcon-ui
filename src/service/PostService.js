@@ -22,6 +22,16 @@ export async function getPosts(offset, tag) {
 
     return resp.data;
 }
+export async function getFollowedPosts(offset) {
+    const resp = await axios.get(config.baseUrl + config.followedPosts, {
+        params: {
+            offset: offset
+        },
+        headers: await getToken()
+    });
+
+    return resp.data;
+}
 
 export async function getPostsForAList(listId) {
     // console.log(listId)

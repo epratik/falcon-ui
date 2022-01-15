@@ -6,5 +6,7 @@
     "patchPosts":"/posts",
     "createPost":"/posts",
     "getPostsForAList":"/lists/id/posts",
-    "patchUsers":"/users"
+    "patchUsers":"/users",
+    "followedPosts":"/posts/followed-posts",
+    "patchList":"/lists"
 }

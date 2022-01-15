@@ -30,3 +30,12 @@ export async function postList(listName, description) {
 
     return resp.data;
 }
+
+export async function updateViews(listId) {
+    const resp = await axios.patch(config.baseUrl + config.patchList, {
+        patchType: "Views",
+        requestBody: {
+            listId: Number(listId)
+        }
+    }, { headers: await getToken() });
+}

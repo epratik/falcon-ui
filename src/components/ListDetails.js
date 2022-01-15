@@ -67,7 +67,7 @@ const ListDetails = (props) => {
                                         )}
                                         <div className="ms-2 me-auto">
                                             <div className="fw-bold">{item.urlDescription}</div>
-                                            <a href={item.url}>{item.url}</a> <br />
+                                            <a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a> <br />
                                         </div>
                                         <span className="badge bg-primary rounded-pill">
                                             {item.likes} Likes
