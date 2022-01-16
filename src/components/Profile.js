@@ -60,13 +60,14 @@ const Profile = () => {
         id="uncontrolled-tab-example"
         className="mb-3 mt-2 sticky-top"
         style={{ backgroundColor: "#FFFFFF" }}
+        mountOnEnter="true"
       >
         <Tab eventKey="topContent" title="Top Content">
           <TopContent></TopContent>
         </Tab>
-        <Tab eventKey="followedContent" title="Followed Content">
+        {/* <Tab eventKey="followedContent" title="Followed Content">
           <FollowedContent></FollowedContent>
-        </Tab>
+        </Tab> */}
         <Tab eventKey="myList" title="My Lists">
           <div className="row">
             {

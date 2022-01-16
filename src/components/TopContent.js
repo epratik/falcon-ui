@@ -10,13 +10,12 @@ const TopContent = () => {
   const [offset, setOffset] = useState(0);
   const [isBackBtnDisabled, setBackButtonDisabler] = useState(true);
   const [topPosts, setTopPosts] = useState({ content: [] });
-  const [tag, setTag] = useState("");
+  const [tag, setTag] = useState("top-content");
   const [subTag, setSubTag] = useState("");
   const [userId, setUserId] = useState(0);
+  const [subTagAvailable, setSubTagAvailable] = useState(false);
 
   const onBackClick = () => {
-    setSubTag("");
-    setTag("");
     setBackButtonDisabler(true);
   }
 
@@ -24,11 +23,15 @@ const TopContent = () => {
     setTag(newTag);
     setOffset(0);
     //Set sub tags to empty if this tag has no sub tags which means we get content from server using only the tag name.
-    if (tags[newTag])
+    if (tags[newTag]) {
       setBackButtonDisabler(false);
-    else
-      setSubTag(null);
-
+      setSubTag("");
+      setSubTagAvailable(true);
+    }
+    else {
+      console.log('setting empty sub tag to true')
+      setSubTagAvailable(false);
+    }
   };
 
   const onSubTagChange = (newSubTag) => {
@@ -36,22 +39,21 @@ const TopContent = () => {
     setOffset(0);
   };
 
-  const getTopContent = (offset, tag) => {
-    getPosts(offset, tag).then((res) => {
+  const getTopContent = (offset, tag, subTag, concat) => {
+    getPosts(offset, tag, subTag).then((res) => {
       if (res && res.content) {
-        topPosts.content = topPosts.content.concat(res.content);
-        setTopPosts(res);
-        setOffset(res.content.length);
+        topPosts.content = concat ? topPosts.content.concat(res.content) : res.content;
+        setTopPosts(topPosts);
+        setOffset(topPosts.content.length);
       }
     });
   }
 
   useEffect(() => {
-    //get data from axios
-    //use second argument [] to hold variables on whose change the hook should run again.
-    console.log('triggering getTopContent from useeffect');
-    getTopContent(offset, tag, subTag);
-  }, [subTag]);
+
+    if ((tag != "" && !subTagAvailable) || (tag != "" && subTag != ""))
+      getTopContent(offset, tag, subTag, false);
+  }, [subTag, subTagAvailable, tag]);
 
   useEffect(() => {
     getUserId().then((val) => {
@@ -67,7 +69,7 @@ const TopContent = () => {
         aria-label="Toolbar with button groups"
       >
         {
-          tag == "" || !tags[tag] ?
+          isBackBtnDisabled ?
             tags.tags.map((item) => {
               return (
                 <button
@@ -100,7 +102,7 @@ const TopContent = () => {
         <InfiniteScroll
           dataLength={topPosts.content.length}
           next={() => {
-            getTopContent(offset, tag);
+            getTopContent(offset, tag, subTag, true);
           }}
           hasMore={true}
           loader={<h4>Loading...</h4>}

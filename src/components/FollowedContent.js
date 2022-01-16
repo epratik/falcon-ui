@@ -12,8 +12,8 @@ const FollowedContent = () => {
         getFollowedPosts(offset).then((res) => {
           if (res && res.content) {
             followedPosts.content = followedPosts.content.concat(res.content);
-            setFollowedPosts(res);
-            setOffset(res.content.length);
+            setFollowedPosts(followedPosts);
+            setOffset(followedPosts.content.length);
           }
         });
       }
@@ -24,7 +24,7 @@ const FollowedContent = () => {
     
     
     return (
-        <div key="77">
+        <div key="78">
         <InfiniteScroll
           dataLength={followedPosts.content.length}
           next={() => {

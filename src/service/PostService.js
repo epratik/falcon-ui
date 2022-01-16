@@ -11,11 +11,15 @@ async function getToken() {
     return reqHeaders;
 }
 
-export async function getPosts(offset, tag) {
+export async function getPosts(offset, tag, subTag) {
+    if (tag == "followed-content")
+        return await getFollowedPosts(offset);
+        
     const resp = await axios.get(config.baseUrl + config.topPosts, {
         params: {
             offset: offset,
-            tag: tag
+            tag: tag,
+            subTag: subTag == "" ? null : subTag
         },
         headers: await getToken()
     });
@@ -62,14 +66,12 @@ export async function unlikePost(postId) {
 
 
 export async function deactivatePost(postId) {
-    console.log('axios called')
     const resp = await axios.patch(config.baseUrl + config.patchPosts, {
         patchType: "Deactivate",
         requestBody: {
             postId: Number(postId)
         }
     }, { headers: await getToken() });
-    console.log('out of axios')
 }
 
 export async function postAUrl(postRecord) {
