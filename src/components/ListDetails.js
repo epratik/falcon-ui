@@ -12,6 +12,7 @@ const ListDetails = (props) => {
     const [itemsToDel, setItemsToDel] = useState([]);
     const [message, setMessage] = useState("");
     const [showStatusModal, setStatusModal] = useState(false);
+    const [disableDelete, setDisableDelete] = useState(false);
 
     const markItems = (postId) => {
         if (!itemsToDel.find((item) => item == postId))
@@ -25,6 +26,7 @@ const ListDetails = (props) => {
     };
     
     const deleteItems = () => {
+        setDisableDelete(true);
         itemsToDel.forEach((postId) => {
             deactivatePost(postId);
             props.handleClose();
@@ -35,6 +37,7 @@ const ListDetails = (props) => {
 
     const resetState = () => {
         setItemsToDel([]);
+        setDisableDelete(false);
     };
 
     return (
@@ -81,7 +84,8 @@ const ListDetails = (props) => {
                 <ModalFooter>
                     <Button onClick={props.handleClose}>Close</Button>
                     {!props.isReadOnly && (
-                        <Button onClick={() => deleteItems()} className="btn btn-danger">
+                        <Button disabled={disableDelete} onClick={() => deleteItems()} className="btn btn-danger">
+                            {disableDelete && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                             Delete
                         </Button>
                     )}

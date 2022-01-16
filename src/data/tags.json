@@ -1,9 +1,15 @@
 {
     "tags":["top-content","followed-content","movies/series","docuseries","comedy","startup","technology","life","travel",
-    "politics","education","health","story","writing","self-improvement","business","music", "food", "art"],
+    "politics","education","health","meditation","writing","self-improvement","business","music", "food", "art","finance","news"],
     "movies/series":["action","comedy","drama","fantasy","horror","mystery","romance","thriller"],
     "docuseries":["observatory","expository","participatory"],
     "comedy":["shows","standup"],
     "business":["startup", "training"],
-    "education":["finance","how-to","lectures"]
+    "education":["how-to","lectures","interviews"],
+    "startup":["funding","ideas","articles"],
+    "finance":["personal","public","corporate"],
+    "technology":["cloud","mobile","unboxing","reviews","learn", "ai/ml","bitcoins","nft","articles"],
+    "music":["rock","hiphop","bollywood","classic","country","folk","pop","hollywood"],
+    "news":["world","india","sports","science","health"],
+    "life":["love/relationships","career","spirituality","meditation"]
 }

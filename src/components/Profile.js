@@ -6,7 +6,6 @@ import { Button, Tab, Tabs } from "react-bootstrap";
 import { getTokenAttributes } from "../service/TokenService";
 import { getAvatar } from "../service/AvatarService.js";
 import TopContent from "./TopContent.js";
-import FollowedContent from "./FollowedContent.js";
 import { getLists } from "../service/ListService.js";
 
 const Profile = () => {
@@ -23,7 +22,6 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
-    console.log('list effect called')
     getLists().then(res => {
       if (res && res.length > 0) {
         setLists(res);
@@ -34,7 +32,7 @@ const Profile = () => {
   return (
     <div>
       <div className="header">
-        <div className="card sticky-top mt-2">
+        <div className="card border-0 sticky-top mt-2">
           <div className="d-flex">
             <img
               src={getAvatar(name)}

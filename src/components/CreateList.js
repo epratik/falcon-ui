@@ -22,9 +22,9 @@ const CreateList = (props) => {
   const [isSubTagDisabled, setSubTagDisabled] = useState(true);
   const [showStatusModal, setStatusModal] = useState(false);
   const [message, setMessage] = useState("");
+  const [disableSave, setDisableSave] = useState(false);
 
   const onTagSelect = (newTag) => {
-    console.log(tags[newTag]);
     if (tags[newTag]) {
       setSubTagDisabled(false);
       setSubTag(tags[newTag]);
@@ -33,6 +33,7 @@ const CreateList = (props) => {
 
   const clearState = () => {
     setListNameValue("");
+    setDisableSave(false);
     props.handleClose();
   };
 
@@ -71,6 +72,7 @@ const CreateList = (props) => {
             onTagSelect={onTagSelect}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
+              setDisableSave(true);
               values.listName = listNameValue;
               values.listId = Number((await postList(listNameValue, "")).value);
               const status = await postAUrl(values);
@@ -184,7 +186,10 @@ const CreateList = (props) => {
                   ) : null}
                 </div>
                 <div className="modal-footer">
-                  <Button type="submit">Save</Button>
+                  <Button type="submit" disabled={disableSave}>
+                    {disableSave && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
+                    Save
+                  </Button>
                   <Button
                     className="ms-2 btn btn-danger"
                     onClick={props.handleClose}

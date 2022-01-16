@@ -14,6 +14,7 @@ const TopContent = () => {
   const [subTag, setSubTag] = useState("");
   const [userId, setUserId] = useState(0);
   const [subTagAvailable, setSubTagAvailable] = useState(false);
+  const [fetchingContent, setFetchingContent] = useState(true);
 
   const onBackClick = () => {
     setBackButtonDisabler(true);
@@ -45,14 +46,17 @@ const TopContent = () => {
         topPosts.content = concat ? topPosts.content.concat(res.content) : res.content;
         setTopPosts(topPosts);
         setOffset(topPosts.content.length);
+        setFetchingContent(false);
       }
     });
   }
 
   useEffect(() => {
 
-    if ((tag != "" && !subTagAvailable) || (tag != "" && subTag != ""))
+    if ((tag != "" && !subTagAvailable) || (tag != "" && subTag != "")) {
+      setFetchingContent(true);
       getTopContent(offset, tag, subTag, false);
+    }
   }, [subTag, subTagAvailable, tag]);
 
   useEffect(() => {
@@ -78,6 +82,7 @@ const TopContent = () => {
                   onClick={() => onTagChange(item)}
                   className="btn btn-light  btn-outline-primary ms-1 mt-1"
                 >
+                {tag == item && fetchingContent && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                   #{item}
                 </button>
               );
@@ -91,6 +96,7 @@ const TopContent = () => {
                   onClick={() => onSubTagChange(item)}
                   className="btn btn-light  btn-outline-primary ms-1 mt-1"
                 >
+                {subTag == item && fetchingContent && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                   #{item}
                 </button>
               );
