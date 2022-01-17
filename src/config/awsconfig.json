@@ -5,7 +5,7 @@
       "userPoolWebClientId": "7dsaq9a3nike41kg0tomfsqmg1",
       "mandatorySignIn": false,
       "cookieStorage": {
-        "domain": "localhost",
+        "domain": "greply.live",
         "path": "/",
         "expires": 365,
         "secure": true
