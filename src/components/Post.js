@@ -8,6 +8,7 @@ import { follow, unfollow } from "../service/UserService.js";
 import { getAvatar } from "../service/AvatarService.js";
 import { getPostsForAList } from "../service/PostService.js";
 import { updateViews } from "../service/ListService.js";
+import GoogleInFeedAd from "./GoogleInFeedAd";
 
 const Post = (props) => {
 
@@ -58,7 +59,7 @@ const Post = (props) => {
 
     return (
         <div>
-            <div className="card mb-1 mt-2 mx-auto border-light" style={{ width: "25rem",backgroundColor:"#E6E6E6" }}>
+            <div className="card mb-1 mt-2 mx-auto border-light" style={{ width: "25rem", backgroundColor: "#E6E6E6" }}>
                 <div className="">
                     <img
                         src={getAvatar(props.item.post.userName)}
@@ -76,15 +77,15 @@ const Post = (props) => {
                         <p className="ms-2">
                             Part of {props.item.post.listName} <br />
                         </p>
-                            <img
-                                src={(props.item.preview && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
-                                style={{ width: '25rem', height:'15rem' }}
-                            />
-                            <br />
+                        <img
+                            src={(props.item.preview && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
+                            style={{ width: '25rem', height: '15rem' }}
+                        />
+                        <br />
                         <p className="ms-2">
                             <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >{props.item.post.urlDescription}</a> <br />
-                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary mt-2" onClick={()=>followOnClick(props)}> {folOrUnFol} </button>
-                            <button type="button" className="btn btn-primary position-relative mt-2 ms-2" onClick={()=>likeOnClick(props)}>
+                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary mt-2" onClick={() => followOnClick(props)}> {folOrUnFol} </button>
+                            <button type="button" className="btn btn-primary position-relative mt-2 ms-2" onClick={() => likeOnClick(props)}>
                                 {likeOrUnlike}
                                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     {props.item.post.likes}
@@ -98,6 +99,8 @@ const Post = (props) => {
                 </div>
             </div>
             <br />
+            {props.adId == 0 && <GoogleInFeedAd></GoogleInFeedAd>}
+            {props.adId == 0 && <br />}
         </div>
     )
 }

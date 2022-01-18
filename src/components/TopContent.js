@@ -114,13 +114,14 @@ const TopContent = () => {
           loader={<h4>Loading...</h4>}
         >
           {topPosts &&
-            topPosts.content.map((item) => {
+            topPosts.content.map((item, index) => {
               return (
-                <Post userId={userId} item={item} key={item.post.postId}>
+                <Post userId={userId} adId={index} item={item} key={item.post.postId}>
                   {" "}
                 </Post>
               );
-            })}
+            })
+          }
         </InfiniteScroll>
       </div>
     </div>

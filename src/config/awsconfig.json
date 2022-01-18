@@ -10,8 +10,8 @@
         "expires": 365,
         "secure": true
       },
-      "redirectSignIn": "https://greply.live/index.html",
-      "redirectSignOut": "https://greply.live/index.html"
+      "redirectSignIn": "https://greply.live/index.html,https://www.greply.live/index.html",
+      "redirectSignOut": "https://greply.live/index.html,https://www.greply.live/index.html"
     }
   }
   
