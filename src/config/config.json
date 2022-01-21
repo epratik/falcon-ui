@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://api.greply.live/api",
+    "baseUrl": "https://api.conten.in/api",
     "topPosts":"/posts/top-posts",
     "getLists":"/lists",
     "postList":"/lists",

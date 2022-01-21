@@ -17,7 +17,8 @@ const Profile = () => {
 
   useEffect(() => {
     getTokenAttributes().then((att) => {
-      setName(att.name);
+      const lastName = att.family_name ? att.family_name : "";
+      setName(att.name + " " + lastName);
     });
   }, []);
 
