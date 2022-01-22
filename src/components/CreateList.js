@@ -17,7 +17,6 @@ import { postAUrl } from "../service/PostService";
 const CreateList = (props) => {
   const [listNameValue, setListNameValue] = useState("");
   const [errListName, setErrListName] = useState("");
-  const [tag, setTag] = useState("");
   const [subTags, setSubTag] = useState([]);
   const [isSubTagDisabled, setSubTagDisabled] = useState(true);
   const [showStatusModal, setStatusModal] = useState(false);
@@ -28,11 +27,15 @@ const CreateList = (props) => {
     if (tags[newTag]) {
       setSubTagDisabled(false);
       setSubTag(tags[newTag]);
-    } else setSubTagDisabled(true);
+    } else {
+      setSubTagDisabled(true);
+      setSubTag([]);
+    }
   };
 
   const clearState = () => {
     setListNameValue("");
+    setErrListName("");
     setDisableSave(false);
     props.handleClose();
   };
@@ -50,8 +53,8 @@ const CreateList = (props) => {
     // listDescription: Yup.string()
     //   .required("List description is required"),
     tag: Yup.string().required("Tag is required"),
-    url: Yup.string().required("Url is required"),
-    urlDescription: Yup.string().required("Url description is required"),
+    url: Yup.string().url().length(300).required("Url is required. Max length of 300."),
+    urlDescription: Yup.string().length(300).required("Url description is required. Max length of 300."),
   });
 
   return (
@@ -72,6 +75,9 @@ const CreateList = (props) => {
             onTagSelect={onTagSelect}
             validationSchema={validationSchema}
             onSubmit={async (values) => {
+              if (errListName)
+                return;
+              
               setDisableSave(true);
               values.listName = listNameValue;
               values.listId = Number((await postList(listNameValue, "")).value);
@@ -82,7 +88,7 @@ const CreateList = (props) => {
               setStatusModal(true);
             }}
           >
-            {({ errors, touched, handleChange, submitForm }) => (
+            {({ errors, touched, handleChange,isValid }) => (
               <Form>
                 <div className="mb-3">
                   <label for="listName" className="form-label">

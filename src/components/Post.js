@@ -98,9 +98,9 @@ const Post = (props) => {
                     </div>
                 </div>
             </div>
-            <br />
+            {/* <br />
             {props.adId == 0 && <GoogleInFeedAd></GoogleInFeedAd>}
-            {props.adId == 0 && <br />}
+            {props.adId == 0 && <br />} */}
         </div>
     )
 }

@@ -75,9 +75,13 @@ export async function deactivatePost(postId) {
 }
 
 export async function postAUrl(postRecord) {
-    const resp = await axios.post(config.baseUrl + config.createPost, postRecord,
-        { headers: await getToken() }
-    );
-
-    return resp.status;
+    try {
+        const resp = await axios.post(config.baseUrl + config.createPost, postRecord,
+            { headers: await getToken() }
+        );
+        return resp.status;
+    }
+    catch(err) {
+        return 500;
+    }
 }
