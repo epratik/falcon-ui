@@ -18,7 +18,7 @@ const Post = (props) => {
     const [likeOrUnlike, setLikeOrUnlike] = useState('Like');
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     const getPosts = (listId) => {
         getPostsForAList(listId).then(res => {
             setItems(res);

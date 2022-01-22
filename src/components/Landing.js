@@ -34,7 +34,7 @@ const Landing = (props) => {
       <div className="p-5 mb-4 border rounded-3" style={{ backgroundColor: "#E4E4E4", color: "#34415E" }}>
         <div className="container-fluid py-5" >
           <h1 className="display-5 fw-bold">Find and share the content you love</h1>
-          <p className="col-md-8 fs-4">Finding content online can be challenging, you google your way through countless number of posts and articles. Use grepin and follow people with similar interests, share content links and show the world what you like.</p>
+          <p className="col-md-8 fs-4">Finding content online can be challenging, you google your way through countless number of posts and articles. Use conten.in and follow people with similar interests, share content links and show the world what you like.</p>
           <button onClick={callSignIn} className="btn btn-primary btn-lg" type="button">Sign Up Now</button>
         </div>
       </div>

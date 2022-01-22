@@ -50,7 +50,7 @@ function Main(props) {
         <div>
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home">GREPIN</Navbar.Brand>
+                    <Navbar.Brand href="#home">Conten.in</Navbar.Brand>
                     <Nav className="me-auto">
                     </Nav>
                     {!isLoggedIn && <Button className="btn btn-primary" onClick={() => Auth.federatedSignIn()}>Sign In</Button>}

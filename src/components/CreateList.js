@@ -133,7 +133,7 @@ const CreateList = (props) => {
                     name="tag"
                   >
                     <option value="Select a category">Select</option>
-                    {tags.tags.map((tag) => (
+                    {tags.tags.slice(2).map((tag) => (
                       <option value={tag}>{tag}</option>
                     ))}
                   </Field>

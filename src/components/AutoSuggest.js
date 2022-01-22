@@ -25,7 +25,7 @@ const AutoSuggest = (props) => {
             props.setParentValue(value);
 
         return inputLength === 0 ? [] : listNames.filter(val =>
-            val.toLowerCase().slice(0, inputLength) === inputValue
+            val.toLowerCase().includes(inputValue)
         );
     };
 
