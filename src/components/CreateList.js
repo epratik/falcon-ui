@@ -53,8 +53,8 @@ const CreateList = (props) => {
     // listDescription: Yup.string()
     //   .required("List description is required"),
     tag: Yup.string().required("Tag is required"),
-    url: Yup.string().url().length(300).required("Url is required. Max length of 300."),
-    urlDescription: Yup.string().length(300).required("Url description is required. Max length of 300."),
+    url: Yup.string().url().max(300).required("Url is required. Max length of 300."),
+    urlDescription: Yup.string().max(300).required("Url description is required. Max length of 300."),
   });
 
   return (
@@ -86,6 +86,7 @@ const CreateList = (props) => {
               else setMessage("Error! Please try again later.");
               props.handleClose();
               setStatusModal(true);
+              setDisableSave(false);
             }}
           >
             {({ errors, touched, handleChange,isValid }) => (

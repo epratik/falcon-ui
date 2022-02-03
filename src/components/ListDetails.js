@@ -26,13 +26,24 @@ const ListDetails = (props) => {
     };
     
     const deleteItems = () => {
-        setDisableDelete(true);
-        itemsToDel.forEach((postId) => {
-            deactivatePost(postId);
+        if (itemsToDel.length > 0) {
+            setDisableDelete(true);
+            itemsToDel.forEach((postId) => {
+                deactivatePost(postId).then(() => {
+                    props.handleClose();
+                    setStatusModal(true);
+                    setMessage("Success! Selected posts were deleted.")
+                }).catch(() => {
+                    props.handleClose();
+                    setStatusModal(true);
+                    setMessage("Error! Please try again later.")
+                })
+            });
+        } else {
+            setMessage("Please select a post to delete");
             props.handleClose();
             setStatusModal(true);
-            setMessage("Success! Selected posts were deleted.")
-        });
+        }
     };
 
     const resetState = () => {
@@ -60,19 +71,21 @@ const ListDetails = (props) => {
                                         key={item.postId}
                                     >
                                         {!props.isReadOnly && (
-                                            <input
-                                                className="form-check-input me-1"
-                                                onClick={() => markItems(item.postId)}
-                                                type="checkbox"
-                                                value=""
-                                                aria-label="..."
-                                            />
+                                            <div>
+                                                <input
+                                                    className="form-check-input"
+                                                    onClick={() => markItems(item.postId)}
+                                                    type="checkbox"
+                                                    value=""
+                                                    aria-label="..."
+                                                />
+                                            </div>
                                         )}
                                         <div className="ms-2 me-auto">
-                                            <div className="fw-bold">{item.urlDescription}</div>
-                                            <a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a> <br />
+                                            <div className="ms-2 fw-bold text-wrap text-break">{item.urlDescription}</div>
+                                            <a className="ms-2" href={item.url} target="_blank" rel="noopener noreferrer">{item.url.substring(0,20)}...</a> <br />
                                         </div>
-                                        <span className="badge bg-primary rounded-pill">
+                                        <span className="ms-2 badge bg-primary rounded-pill">
                                             {item.likes} Likes
                                         </span>
                                     </li>

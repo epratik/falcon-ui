@@ -14,46 +14,77 @@ const Post = (props) => {
 
     const [show, setShow] = useState(false);
     const [items, setItems] = useState([])
-    const [folOrUnFol, setfolOrUnFol] = useState('Follow');
+    const [folOrUnFol, setfolOrUnFol] = useState(() => {
+        if (props.item.post.isFollowing)
+            return "Unfollow";
+        else
+            return "Follow";
+    });
     const [likeOrUnlike, setLikeOrUnlike] = useState('Like');
+    const [listSpinner, setListSpinner] = useState(false);
+    const [followSpinner, setFollowSpinner] = useState(false);
+    const [likeSpinner, setLikeSpinner] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const getPosts = (listId) => {
         getPostsForAList(listId).then(res => {
             setItems(res);
+            handleShow();
+            setListSpinner(false)
+        }).catch(() => {
+            setListSpinner(false)
         })
     }
 
     const onClickShowList = (listId) => {
-        handleShow();
+        setListSpinner(true)
         getPosts(listId);
         updateViews(listId);
     }
     
     const followOnClick = (props) => {
+        setFollowSpinner(true);
         //call api
         if (folOrUnFol === 'Follow') {
-            setfolOrUnFol('Unfollow');
-            follow(props.item.post.userId)
+            follow(props.item.post.userId).then(() => {
+                setfolOrUnFol('Unfollow');
+                setFollowSpinner(false);
+            }).catch(() => {
+                setFollowSpinner(false)
+            })
         }
         else {
-            setfolOrUnFol('Follow');
-            unfollow(props.item.post.userId)
+            unfollow(props.item.post.userId).then(() => {
+                setfolOrUnFol('Follow');
+                setFollowSpinner(false);
+            }).catch(() => {
+                setFollowSpinner(false)
+            })
         }
     }
 
     const likeOnClick = (props) => {
+        setLikeSpinner(true);
         //call api
         if (likeOrUnlike === 'Like') {
-            likePost(props.item.post.postId);
-            props.item.post.likes++;
-            setLikeOrUnlike('Unlike');
+            likePost(props.item.post.postId).then(() => {
+                setLikeSpinner(false);
+                props.item.post.likes++;
+                setLikeOrUnlike('Unlike');
+            }).catch(() => {
+                setLikeSpinner(false)
+            })
         }
         else {
-            unlikePost(props.item.post.postId);
-            props.item.post.likes--;
-            setLikeOrUnlike('Like');
+            unlikePost(props.item.post.postId).then(() => {
+                setLikeSpinner(false);
+                props.item.post.likes--;
+                setLikeOrUnlike('Like');
+            }).catch(() => {
+                setLikeSpinner(false)
+            })
+
         }
     }
 
@@ -84,15 +115,22 @@ const Post = (props) => {
                         <br />
                         <p className="ms-2">
                             <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >{props.item.post.urlDescription}</a> <br />
-                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary mt-2" onClick={() => followOnClick(props)}> {folOrUnFol} </button>
-                            <button type="button" className="btn btn-primary position-relative mt-2 ms-2" onClick={() => likeOnClick(props)}>
+                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary mt-2" onClick={() => followOnClick(props)}>
+                                {followSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
+                                {folOrUnFol}
+                            </button>
+                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary position-relative mt-2 ms-2" onClick={() => likeOnClick(props)}>
+                                {likeSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                                 {likeOrUnlike}
                                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     {props.item.post.likes}
                                     <span className="visually-hidden">unread messages</span>
                                 </span>
                             </button>
-                            <button type="button" className="btn btn-secondary ms-5 mt-2" onClick={() => onClickShowList(props.item.post.listId)}>Show List</button>
+                            <button type="button" className="btn btn-secondary ms-5 mt-2" onClick={() => onClickShowList(props.item.post.listId)}>
+                                {listSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
+                                Show List
+                            </button>
                             <ListDetails items={items} isReadOnly={true} show={show} handleClose={handleClose} />
                         </p>
                     </div>
