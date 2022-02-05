@@ -107,7 +107,7 @@ const Post = (props) => {
                         
                         <p className="ms-2">
                             Part of {props.item.post.listName} <br />
-                        </p>
+                        </p>                        
                         <img
                             src={(props.item.preview && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
                             style={{ width: '25rem', height: '15rem' }}

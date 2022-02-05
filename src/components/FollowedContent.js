@@ -6,7 +6,8 @@ import { getFollowedPosts } from "../service/PostService.js";
 
 const FollowedContent = () => {
     const [offset, setOffset] = useState(0);
-    const [followedPosts, setFollowedPosts] = useState({ content: [] });
+  const [followedPosts, setFollowedPosts] = useState({ content: [] });
+  const [hasMore, setHasMore] = useState(true);
 
     const getFollowedContent = (offset) => {
         getFollowedPosts(offset).then((res) => {
@@ -14,6 +15,10 @@ const FollowedContent = () => {
             followedPosts.content = followedPosts.content.concat(res.content);
             setFollowedPosts(followedPosts);
             setOffset(followedPosts.content.length);
+            if (res.content.length > 0)
+              setHasMore(true);
+            else
+              setHasMore(false);
           }
         });
       }
@@ -30,8 +35,9 @@ const FollowedContent = () => {
           next={() => {
             getFollowedContent(offset);
           }}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
+          hasMore={hasMore}
+          loader={<h5>Loading...</h5>}
+          endMessage={<h6> Oops, no content found. Follow more users to get content here. </h6>}
         >
           {followedPosts &&
             followedPosts.content.map((item) => {

@@ -1,6 +1,6 @@
 {
-    "tags":["top-content","followed-content","movies/series","docuseries","comedy","startup","technology","life","travel",
-    "politics","education","health","writing","business","music", "food", "art","finance","news"],
+    "tags":["top-content","followed-content","movies/series","docuseries","comedy","startup","technology","life",
+    "education","health","business","music", "hobbies","finance","news"],
     "movies/series":["action","comedy","drama","fantasy","horror","mystery","romance","thriller"],
     "docuseries":["observatory","expository","participatory"],
     "comedy":["shows","standup"],
@@ -10,6 +10,8 @@
     "finance":["personal","public","corporate"],
     "technology":["cloud","mobile","unboxing","reviews","learn", "ai/ml","bitcoins","nft","articles"],
     "music":["rock","hiphop","bollywood","classic","country","folk","pop","hollywood"],
-    "news":["world","india","sports","science","health"],
-    "life":["love/relationships","career","spirituality","meditation","self-improvement"]
+    "news":["world","india","sports","science","health","politics"],
+    "life":["love/relationships","career","spirituality","meditation","self-improvement", "travel"],
+    "health":["fitness", "diet", "workouts", "food"],
+    "hobbies":["art", "writing", "travel","others"]
 }

@@ -7,10 +7,10 @@
   pointer-events: none;
 }
 
-.body {
+/* .body {
   background-color:blue;
   height:100%
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

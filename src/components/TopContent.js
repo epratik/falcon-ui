@@ -15,6 +15,7 @@ const TopContent = () => {
   const [userId, setUserId] = useState(0);
   const [subTagAvailable, setSubTagAvailable] = useState(false);
   const [fetchingContent, setFetchingContent] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
 
   const onBackClick = () => {
     setBackButtonDisabler(true);
@@ -47,6 +48,10 @@ const TopContent = () => {
         setTopPosts(topPosts);
         setOffset(topPosts.content.length);
         setFetchingContent(false);
+        if (res.content.length > 0)
+          setHasMore(true);
+        else
+          setHasMore(false);
       }
     });
   }
@@ -110,8 +115,9 @@ const TopContent = () => {
           next={() => {
             getTopContent(offset, tag, subTag, true);
           }}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
+          hasMore={hasMore}
+          loader={<h5>Loading...</h5>}
+          endMessage={<h6> Oops, no content found. You can add a new post using the post a link button.</h6>}
         >
           {topPosts &&
             topPosts.content.map((item, index) => {

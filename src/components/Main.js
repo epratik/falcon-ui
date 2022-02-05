@@ -1,6 +1,7 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../index.css'
+import favicon from '../images/favicon.ico'
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import {useState, useEffect} from "react"
 import Amplify, { Auth, Hub } from 'aws-amplify'
@@ -50,7 +51,11 @@ function Main(props) {
         <div>
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home">ContenHub</Navbar.Brand>
+                    <Navbar.Brand href="#home" >
+                        <img src={favicon} className="d-inline-block align-top"  style={{ width: "2rem", height: "2rem"}} />
+                        {' '}<h5 style={{ display: "inline" }}>ContenHub</h5>
+                        {/* {' '}<i style={{fontSize: '16px'}}>find and share what you like</i> */}
+                    </Navbar.Brand>
                     <Nav className="me-auto">
                     </Nav>
                     {!isLoggedIn && <Button className="btn btn-primary" onClick={() => Auth.federatedSignIn()}>Sign In</Button>}
