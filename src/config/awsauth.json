@@ -1,5 +1,5 @@
 {
-    "domain": "conten.auth.us-west-2.amazoncognito.com",
+    "domain": "contenhub.auth.us-west-2.amazoncognito.com",
     "scope": [
       "phone",
       "email",
@@ -7,7 +7,7 @@
       "openid",
       "aws.cognito.signin.user.admin"
     ],
-    "redirectSignIn": "https://conten.in/index.html",
-    "redirectSignOut": "https://conten.in/index.html",
+    "redirectSignIn": "https://contenhub.com/index.html",
+    "redirectSignOut": "https://contenhub.com/index.html",
     "responseType": "code"
 }

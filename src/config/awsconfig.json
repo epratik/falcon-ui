@@ -1,17 +1,17 @@
 {
     "Auth": {
       "region": "us-west-2",
-      "userPoolId": "us-west-2_RU6qbjCKo",
-      "userPoolWebClientId": "4qqm3fpq6njndg1c5u5jlhj6ej",
+      "userPoolId": "us-west-2_fWe5tW92W",
+      "userPoolWebClientId": "urig9e26269bvd8o1j6njfdt4",
       "mandatorySignIn": false,
       "cookieStorage": {
-        "domain": "conten.in",
+        "domain": "contenhub.com",
         "path": "/",
         "expires": 365,
         "secure": true
       },
-      "redirectSignIn": "https://conten.in/index.html",
-      "redirectSignOut": "https://conten.in/index.html"
+      "redirectSignIn": "https://contenhub.com/index.html",
+      "redirectSignOut": "https://contenhub.com/index.html"
     }
   }
   
