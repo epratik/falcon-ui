@@ -106,15 +106,17 @@ const Post = (props) => {
                     <div>
                         
                         <p className="ms-2">
-                            Part of {props.item.post.listName} <br />
-                        </p>                        
+                            List Name - <b>{props.item.post.listName}</b> <br />
+                        </p>     
+                        <a href={props.item.post.url}>
                         <img
-                            src={(props.item.preview && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
+                            src={(props.item.preview && props.item.preview.images && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
                             style={{ width: '25rem', height: '15rem' }}
-                        />
+                            />
+                        </a>
                         <br />
                         <p className="ms-2">
-                            <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >{props.item.post.urlDescription}</a> <br />
+                            {props.item.post.urlDescription}<br />
                             <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary mt-2" onClick={() => followOnClick(props)}>
                                 {followSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                                 {folOrUnFol}

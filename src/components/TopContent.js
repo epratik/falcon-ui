@@ -19,6 +19,7 @@ const TopContent = () => {
 
   const onBackClick = () => {
     setBackButtonDisabler(true);
+    setSubTag("");
   }
 
   const onTagChange = (newTag) => {
@@ -57,7 +58,10 @@ const TopContent = () => {
   }
 
   useEffect(() => {
-
+    console.log('useeffect called')
+    console.log(tag)
+    console.log(subTag)
+    console.log('*****************')
     if ((tag != "" && !subTagAvailable) || (tag != "" && subTag != "")) {
       setFetchingContent(true);
       getTopContent(offset, tag, subTag, false);
