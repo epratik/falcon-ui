@@ -59,7 +59,7 @@ const ListDetails = (props) => {
                 onExit={() => resetState()}
             >
                 <ModalHeader>
-                    <ModalTitle>Items</ModalTitle>
+                    <ModalTitle>{props.listName}</ModalTitle>
                 </ModalHeader>
                 <ModalBody>
                     {

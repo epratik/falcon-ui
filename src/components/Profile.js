@@ -46,7 +46,7 @@ const Profile = () => {
               <CreateList show={show} handleClose={handleClose}>
                 {" "}
               </CreateList>
-              <Button className="btn btn-primary" onClick={handleShow}>
+              <Button className="btn btn-secondary"  onClick={handleShow}>
                 {" "}
                 Post A Link{" "}
               </Button>

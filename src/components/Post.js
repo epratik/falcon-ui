@@ -106,9 +106,9 @@ const Post = (props) => {
                     <div>
                         
                         <p className="ms-2">
-                            List Name - <b>{props.item.post.listName}</b> <br />
+                            <b>{props.item.post.listName}</b> <br />
                         </p>     
-                        <a href={props.item.post.url}>
+                        <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >
                         <img
                             src={(props.item.preview && props.item.preview.images && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
                             style={{ width: '25rem', height: '15rem' }}
@@ -133,7 +133,7 @@ const Post = (props) => {
                                 {listSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                                 Show List
                             </button>
-                            <ListDetails items={items} isReadOnly={true} show={show} handleClose={handleClose} />
+                            <ListDetails items={items} listName = {props.item.post.listName} isReadOnly={true} show={show} handleClose={handleClose} />
                         </p>
                     </div>
                 </div>
