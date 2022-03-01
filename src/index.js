@@ -4,7 +4,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { HashRouter, Route, Switch } from "react-router-dom";
 import PageLayout from '../src/components/PageLayout';
+import SharedList from '../src/components/SharedList';
 import Landing from '../src/components/Landing';
+import TopContent from './components/TopContent';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +15,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/home" component={PageLayout}></Route>
+        <Route exact path="/lists" component={SharedList}></Route>
       </Switch>
     </HashRouter>
   </React.StrictMode>,

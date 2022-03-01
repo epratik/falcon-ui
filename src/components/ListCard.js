@@ -35,33 +35,27 @@ const ListCard = (props) => {
     };
 
     return (
-        <section class="col-lg-3 ms-2" key={props.list.listId}>
-            <div className="card bg-light mb-3" style={{ maxWidth: "18rem" }}>
-                <div className="card-header">{props.list.name}</div>
-                <div className="card-body">
-                    <ListDetails
-                        items={items}
-                        isReadOnly={false}
-                        show={show}
-                        handleClose={handleClose}
+        <div>
+            <button onClick={() => onClickShowLists(props.list.listId)} type="button" class="list-group-item list-group-item-action">{props.list.name}
+            <span class="position-absolute top-0 end-0 me-1 mt-2  badge bg-danger ">
+            {props.list.views} views
+  </span>
+                {/* <span data-bs-toggle="tooltip" data-bs-placement="top" title="No of views"
+                    class="badge bg-danger position-absolute top-0 end-0"> {props.list.views}</span> */}
+                {spinner && (
+                    <span
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
                     />
-                    <h5 className="card-title">{props.list.views} Views</h5>
-                    <p className="card-text">{props.list.description}</p>
-                    <Button
-                        className="btn btn-secondary"
-                        onClick={() => onClickShowLists(props.list.listId)}
-                    >
-                        {spinner && (
-                            <span
-                                class="spinner-border spinner-border-sm"
-                                role="status"
-                                aria-hidden="true"
-                            />
-                        )}
-                        Show List
-                    </Button>
-                </div>
-            </div>
+                )}
+            </button>
+            <ListDetails
+                items={items}
+                isReadOnly={false}
+                show={show}
+                handleClose={handleClose}
+            />
             <Modal
                 centered
                 size="sm"
@@ -80,7 +74,7 @@ const ListCard = (props) => {
                     </Button>
                 </ModalFooter>
             </Modal>
-        </section>
+        </div>
     );
 };
 

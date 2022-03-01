@@ -59,39 +59,44 @@ const ListDetails = (props) => {
                 onExit={() => resetState()}
             >
                 <ModalHeader>
-                    <ModalTitle>{props.listName}</ModalTitle>
+                    <ModalTitle>
+                    Here is a link to share this list<br/>
+                        <small className="text-primary">https://contenhub.com/lists?listId={props.listId}#/lists</small>
+                    </ModalTitle>
                 </ModalHeader>
                 <ModalBody>
                     {
-                        <ol className="list-group list-group-numbered">
-                            {props.items.map((item) => {
-                                return (
-                                    <li
-                                        className="list-group-item d-flex justify-content-between align-items-start"
-                                        key={item.postId}
-                                    >
-                                        {!props.isReadOnly && (
-                                            <div>
-                                                <input
-                                                    className="form-check-input"
-                                                    onClick={() => markItems(item.postId)}
-                                                    type="checkbox"
-                                                    value=""
-                                                    aria-label="..."
-                                                />
+                        <div>
+                            <ol className="list-group list-group-numbered">
+                                {props.items.map((item) => {
+                                    return (
+                                        <li
+                                            className="list-group-item d-flex justify-content-between align-items-start"
+                                            key={item.postId}
+                                        >
+                                            {!props.isReadOnly && (
+                                                <div>
+                                                    <input
+                                                        className="form-check-input"
+                                                        onClick={() => markItems(item.postId)}
+                                                        type="checkbox"
+                                                        value=""
+                                                        aria-label="..."
+                                                    />
+                                                </div>
+                                            )}
+                                            <div className="ms-2 me-auto">
+                                                <div className="ms-2 text-wrap text-break">{item.urlDescription}</div>
+                                                <a className="ms-2 text-primary" href={item.url} target="_blank" rel="noopener noreferrer">{item.url.substring(0, 20)}...</a> <br />
                                             </div>
-                                        )}
-                                        <div className="ms-2 me-auto">
-                                            <div className="ms-2 fw-bold text-wrap text-break">{item.urlDescription}</div>
-                                            <a className="ms-2" href={item.url} target="_blank" rel="noopener noreferrer">{item.url.substring(0,20)}...</a> <br />
-                                        </div>
-                                        <span className="ms-2 badge bg-primary rounded-pill">
-                                            {item.likes} Likes
-                                        </span>
-                                    </li>
-                                );
-                            })}
-                        </ol>
+                                            <span className="ms-2 badge bg-primary rounded-pill">
+                                                {item.likes} Likes
+                                            </span>
+                                        </li>
+                                    );
+                                })}
+                            </ol>
+                        </div>
                     }
                 </ModalBody>
                 <ModalFooter>

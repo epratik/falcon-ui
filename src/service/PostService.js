@@ -20,8 +20,8 @@ export async function getPosts(offset, tag, subTag) {
             offset: offset,
             tag: tag,
             subTag: subTag == "" ? null : subTag
-        },
-        headers: await getToken()
+        }
+        // headers: await getToken()
     });
 
     return resp.data;
@@ -37,10 +37,21 @@ export async function getFollowedPosts(offset) {
     return resp.data;
 }
 
+export async function getSharedListPosts(listId, offset) {
+    const resp = await axios.get(config.baseUrl + config.sharedListPosts.replace('id', listId.toString()), {
+        params: {
+            offset: offset
+        }
+    });
+
+    return resp.data;
+}
+
+
 export async function getPostsForAList(listId) {
     // console.log(listId)
     const resp = await axios.get(config.baseUrl + config.getPostsForAList.replace('id', listId.toString()), {
-        headers: await getToken()
+        // headers: await getToken()
     });
 
     return resp.data;

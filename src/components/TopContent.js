@@ -6,7 +6,7 @@ import { getPosts } from "../service/PostService.js";
 import tags from "../data/tags.json";
 import { getUserId } from "../service/TokenService";
 
-const TopContent = () => {
+const TopContent = (props) => {
   const [offset, setOffset] = useState(0);
   const [isBackBtnDisabled, setBackButtonDisabler] = useState(true);
   const [topPosts, setTopPosts] = useState({ content: [] });
@@ -32,7 +32,6 @@ const TopContent = () => {
       setSubTagAvailable(true);
     }
     else {
-      console.log('setting empty sub tag to true')
       setSubTagAvailable(false);
     }
   };
@@ -58,10 +57,6 @@ const TopContent = () => {
   }
 
   useEffect(() => {
-    console.log('useeffect called')
-    console.log(tag)
-    console.log(subTag)
-    console.log('*****************')
     if ((tag != "" && !subTagAvailable) || (tag != "" && subTag != "")) {
       setFetchingContent(true);
       getTopContent(offset, tag, subTag, false);
@@ -69,6 +64,9 @@ const TopContent = () => {
   }, [subTag, subTagAvailable, tag]);
 
   useEffect(() => {
+    if (props.blockFollowLike)
+      return;
+    console.log('I AM HERE')
     getUserId().then((val) => {
       setUserId(val);
     });
@@ -77,6 +75,7 @@ const TopContent = () => {
   return (
     <div>
       <div
+      
         className="btn-toolbar"
         role="toolbar"
         aria-label="Toolbar with button groups"
@@ -84,12 +83,14 @@ const TopContent = () => {
         {
           isBackBtnDisabled ?
             tags.tags.map((item) => {
+              if (props.blockFollowLike && item == "followed-content")
+                return;
               return (
                 <button
                   key={Math.random().toString(36).substr(2, 9)}
                   type="button"
                   onClick={() => onTagChange(item)}
-                  className="btn btn-light  btn-outline-primary ms-1 mt-1"
+                  className="btn btn-secondary ms-1 mt-1"
                 >
                 {tag == item && fetchingContent && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                   #{item}
@@ -103,7 +104,8 @@ const TopContent = () => {
                   key={Math.random().toString(36).substr(2, 9)}
                   type="button"
                   onClick={() => onSubTagChange(item)}
-                  className="btn btn-light  btn-outline-primary ms-1 mt-1"
+                  // className="btn btn-light  btn-outline-primary ms-1 mt-1"
+                  className="btn btn-secondary ms-1 mt-1"
                 >
                 {subTag == item && fetchingContent && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                   #{item}
@@ -126,7 +128,7 @@ const TopContent = () => {
           {topPosts &&
             topPosts.content.map((item, index) => {
               return (
-                <Post userId={userId} adId={index} item={item} key={item.post.postId}>
+                <Post blockFollowLike={props.blockFollowLike} userId={userId} adId={index} item={item} key={item.post.postId}>
                   {" "}
                 </Post>
               );

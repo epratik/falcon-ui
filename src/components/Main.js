@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '../index.css'
 import favicon from '../images/favicon.ico'
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
-import {useState, useEffect} from "react"
+import {useState, useEffect } from "react"
 import Amplify, { Auth, Hub } from 'aws-amplify'
 import awsconfig from '../config/awsconfig.json'
 import awsauth from '../config/awsauth.json'
@@ -14,6 +14,7 @@ function Main(props) {
 
     // const { push } = useHistory();
     const [isLoggedIn, setLoggedIn] = useState(false);
+    const [callLists, setCallLists] = useState(true)
 
     useEffect(() => {
         async function getUser() {
@@ -24,6 +25,15 @@ function Main(props) {
         }
         getUser();
     }, []);
+    
+    useEffect(() => {        
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        if (params.get('listId') && callLists) {
+            props.history.push({ pathname: "/lists" });
+            setCallLists(false);
+        }
+    }, [callLists])
     
     useEffect(() => {
         Amplify.configure(awsconfig)
@@ -55,7 +65,7 @@ function Main(props) {
                         <img src={favicon} className="d-inline-block align-top"  style={{ width: "2rem", height: "2rem"}} />
                         {' '}<h5 style={{ display: "inline" }}>ContenHub</h5>
                         {/* {' '}<i style={{fontSize: '16px'}}>find and share what you like</i> */}
-                    </Navbar.Brand>
+                    </Navbar.Brand>          
                     <Nav className="me-auto">
                     </Nav>
                     {!isLoggedIn && <Button className="btn btn-primary" onClick={() => Auth.federatedSignIn()}>Sign In</Button>}

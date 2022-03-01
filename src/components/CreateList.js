@@ -92,14 +92,14 @@ const CreateList = (props) => {
             {({ errors, touched, handleChange,isValid }) => (
               <Form>
                 <div className="mb-3">
-                  <label for="listName" className="form-label">
+                  <label for="listName" className="form-label" >
                     List Name
                   </label>
-                  <AutoSuggest setParentValue={setListName}></AutoSuggest>
+                  <AutoSuggest setParentValue={setListName} placeholder="Type to select an existing list or create a new one."></AutoSuggest>
                   {/* <input ref={inputRef} className="form-control" value={listNameValue} onKeyPress={(e)=>console.log(e.key)} onChange={handleChange("listName")} name="listName" aria-describedby="listNameHelp" /> */}
-                  <div id="listNameHelp" className="form-text">
+                  {/* <div id="listNameHelp" className="form-text">
                     Type to select an existing list or create a new one.
-                  </div>
+                  </div> */}
                   {errListName ? (
                     <div className="text-danger"> {errListName} </div>
                   ) : null}
@@ -118,10 +118,11 @@ const CreateList = (props) => {
                     className="form-control"
                     name="url"
                     aria-describedby="urlHelp"
+                    placeholder="Provide the link you want to share."
                   />
-                  <div id="urlHelp" className="form-text">
+                  {/* <div id="urlHelp" className="form-text">
                     Provide the link you want to share
-                  </div>
+                  </div> */}
                   {touched.url && errors.url ? (
                     <div className="text-danger">{errors.url} </div>
                   ) : null}
@@ -145,9 +146,9 @@ const CreateList = (props) => {
                     ))}
                   </Field>
                   {/* <Field placeholder="" className="form-control" name="tag" aria-describedby="tagHelp" /> */}
-                  <div id="tagHelp" className="form-text">
+                  {/* <div id="tagHelp" className="form-text">
                     Select a relevant category for your post.
-                  </div>
+                  </div> */}
                   {touched.tag && errors.tag ? (
                     <div className="text-danger"> {errors.tag} </div>
                   ) : null}
@@ -169,9 +170,9 @@ const CreateList = (props) => {
                     ))}
                   </Field>
                   {/* <Field placeholder="" className="form-control" name="tag" aria-describedby="tagHelp" /> */}
-                  <div id="tagHelp" className="form-text">
+                  {/* <div id="tagHelp" className="form-text">
                     Select a sub category for your post.
-                  </div>
+                  </div> */}
                   {touched.subTag && errors.subTag ? (
                     <div className="text-danger"> {errors.subTag} </div>
                   ) : null}
@@ -184,10 +185,11 @@ const CreateList = (props) => {
                     className="form-control"
                     name="urlDescription"
                     aria-describedby="urlDescriptionHelp"
+                    placeholder="Short description about this url."
                   />
-                  <div id="urlDescriptionHelp" className="form-text">
+                  {/* <div id="urlDescriptionHelp" className="form-text">
                     Short description about this url.
-                  </div>
+                  </div> */}
                   {touched.urlDescription && errors.urlDescription ? (
                     <div className="text-danger"> {errors.urlDescription}</div>
                   ) : null}

@@ -90,7 +90,7 @@ const Post = (props) => {
 
     return (
         <div>
-            <div className="card mb-1 mt-2 mx-auto border-light" style={{ width: "25rem", backgroundColor: "#E6E6E6" }}>
+            <div className="card rounded-3 border-primary border-3 mb-1 mt-2 mx-auto border-light" style={{ width: "25rem", backgroundColor: "#FFFFFF", opacity:"1" }}>
                 <div className="">
                     <img
                         src={getAvatar(props.item.post.userName)}
@@ -111,17 +111,17 @@ const Post = (props) => {
                         <a href={props.item.post.url} target="_blank" rel="noopener noreferrer" >
                         <img
                             src={(props.item.preview && props.item.preview.images && props.item.preview.images[0]) ? props.item.preview.images[0] : imgNotAvailable}
-                            style={{ width: '25rem', height: '15rem' }}
+                            style={{ width: '24.9rem', height: '15rem' }}
                             />
                         </a>
                         <br />
                         <p className="ms-2">
                             {props.item.post.urlDescription}<br />
-                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary mt-2" onClick={() => followOnClick(props)}>
+                            <button type="button" disabled={props.blockFollowLike || (props.item.post.userId == props.userId)} className="btn btn-primary mt-2" onClick={() => followOnClick(props)}>
                                 {followSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                                 {folOrUnFol}
                             </button>
-                            <button type="button" disabled={props.item.post.userId == props.userId} className="btn btn-primary position-relative mt-2 ms-2" onClick={() => likeOnClick(props)}>
+                            <button type="button" disabled={props.blockFollowLike || (props.item.post.userId == props.userId)} className="btn btn-primary position-relative mt-2 ms-2" onClick={() => likeOnClick(props)}>
                                 {likeSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
                                 {likeOrUnlike}
                                 <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -131,9 +131,9 @@ const Post = (props) => {
                             </button>
                             <button type="button" className="btn btn-secondary ms-5 mt-2" onClick={() => onClickShowList(props.item.post.listId)}>
                                 {listSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />}
-                                Show List
+                                More in this list
                             </button>
-                            <ListDetails items={items} listName = {props.item.post.listName} isReadOnly={true} show={show} handleClose={handleClose} />
+                            <ListDetails items={items} listName = {props.item.post.listName} listId ={props.item.post.listId} isReadOnly={true} show={show} handleClose={handleClose} />
                         </p>
                     </div>
                 </div>
