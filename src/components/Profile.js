@@ -10,6 +10,7 @@ import { getLists } from "../service/ListService.js";
 import About from "./About.js";
 
 const Profile = () => {
+  const [listToggler, toggleGetLists] = useState(false);
   const [lists, setLists] = useState([]);
   const [name, setName] = useState("");
   const [show, setShow] = useState(false);
@@ -22,13 +23,14 @@ const Profile = () => {
   }
 
   const setMyList = () => {
+    toggleGetLists(!listToggler);
     setCompName('my-list')
   }
 
   const setAbout = () => {
     setCompName('about')
   }
-
+  
   useEffect(() => {
     getTokenAttributes().then((att) => {
       const lastName = att.family_name ? att.family_name : "";
@@ -42,7 +44,7 @@ const Profile = () => {
         setLists(res);
       }
     })
-  }, []);
+  }, [listToggler]);
 
   return (
     <div>

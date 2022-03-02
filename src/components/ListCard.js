@@ -55,6 +55,7 @@ const ListCard = (props) => {
                 isReadOnly={false}
                 show={show}
                 handleClose={handleClose}
+                listId ={props.list.listId}
             />
             <Modal
                 centered
