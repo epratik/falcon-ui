@@ -36,9 +36,6 @@ const Landing = (props) => {
 
     
       <div className="row align-items-md-stretch" style={{ "max-height": "100vh"}} >
-        <div className="col-md-6 overflow-auto" style={{ "max-height": "100vh"}}>
-          <TopContent blockFollowLike={true}></TopContent>
-        </div>
         <div className="col-md-6 p-5 border rounded-3 blur"
           style={{ backgroundColor: "#E4E4E4","height": "100vh", color: "#FFFFFF", backgroundImage: `url(${landingimg})`, backgroundSize: "cover" }}>
         <div className="py-5" >
@@ -51,7 +48,10 @@ const Landing = (props) => {
             <p className="fs-4">Contact us at <small><b>conten.help@gmail.com</b></small></p>
           <button onClick={callSignIn} className="btn btn-primary btn-lg" type="button">Sign Up Now</button>
         </div>
-      </div>
+        </div>
+        <div className="col-md-6 overflow-auto" style={{ "max-height": "100vh"}}>
+          <TopContent blockFollowLike={true}></TopContent>
+        </div>
         {/* <div className="col-md-6 overflow-auto" style={{ "max-height": "100vh"}}>
           <div className="p-5 border rounded-3 text-light bg-dark" >
             <h2>How does it work?</h2>
