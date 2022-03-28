@@ -1,61 +1,62 @@
 
-// import 'bootstrap/dist/css/bootstrap.min.css'
-// import './index.css'
-// import PageLayout from './components/PageLayout';
-// import { BrowserRouter, Route, Switch } from "react-router-dom";
-// import Landing from './components/Landing';
-// import { Navbar, Container, Nav, Button } from 'react-bootstrap';
-// import {useState, useEffect} from "react"
-// import Amplify, { Auth, Hub } from 'aws-amplify'
-// import awsconfig from './config/awsconfig.json'
-// import awsauth from './config/awsauth.json'
-// import { browserHistory } from 'react-router'
-// import { withRouter, useHistory } from "react-router-dom";
-import Main from './components/Main';
+import Form from "react-bootstrap/Form";
+import { getLists, postList } from "./service/ListService";
+import { useState } from "react";
 
 function App() {
 
-  // const [isLoggedIn, setLoggedIn] = useState(false);
 
-  // useEffect(() => {
-  //   Amplify.configure(awsconfig)
-  //   Auth.configure({ oauth: awsauth })
-  //   Hub.listen('auth', ({ payload: { event, data } }) => {
-  //     switch (event) {
-  //       case 'signIn':
-  //         console.log('sign in', event, data)
-  //         setLoggedIn(true)
-  //         // props.history.push('/home')
-  //         break
-  //       case 'signOut':
-  //         console.log('sign out')
-  //         // this.setState({ user: null })
-  //         break
-  //       default:
-  //         break
-  //     }
-  //   })
-  // }, []);
+  const [state, setState] = useState("");
+  const [result, setResult] = useState("");
+  const [items, setItems] = useState([]);
 
+  const onClickSaveList = () => {
+    postList(JSON.parse(state)).then(() => {
+      setResult("List created successfully.")
+     });
+  };
+
+  const onClickGetList = () => {
+    getLists().then((val) => {
+      setItems(val);
+      setResult("Lists fetched successfully.")
+    });
+  };
+  
   return (
-    <Main></Main>
-    // <BrowserRouter>
-    //   <div>
-    //     <Navbar bg="dark" variant="dark">
-    //       <Container>
-    //         <Navbar.Brand href="#home">GREPIN</Navbar.Brand>
-    //         <Nav className="me-auto">
-    //         </Nav>
-    //         {!isLoggedIn && <Button className="btn btn-primary" onClick={() => Auth.federatedSignIn()}>Sign In</Button>}
-    //         {isLoggedIn && <Button className="btn btn-primary" onClick={() => Auth.signOut()}>Sign Out</Button>}
-    //       </Container>
-    //     </Navbar>
-    //   </div>
-    //   <Switch>
-    //     <Route exact path="/" component={Landing} />
-    //     <Route exact path="/home" component={PageLayout}></Route>
-    //   </Switch>
-    // </BrowserRouter>
+
+    <div>
+      <Form>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Label></Form.Label>
+          <Form.Control as="textarea"
+            value={state}
+            onChange={e => setState(e.target.value)}
+            rows={10} />
+        </Form.Group>
+        <button onClick={() => onClickSaveList()}
+          type="button">Create List
+        </button> <br/><br/>
+        <button onClick={() => onClickGetList()}
+          type="button">Get List
+        </button>
+      </Form>
+      ------------------------------------------<br/>
+      {result}<br/>
+      ------------------------------------------
+      {
+        items && items.map((item) => {
+          return (
+            <div>
+              listId:{item.listId}<br/>
+              description:{item.description}<br />
+              name:{item.name}<br />
+              views:{item.views}<br />
+              ************************
+            </div>)
+        })
+      }         
+    </div>
   );
 }
 

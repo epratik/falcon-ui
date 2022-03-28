@@ -1,13 +1,5 @@
 {
-    "baseUrl": "https://api.contenhub.com/api",
-    "topPosts":"/posts/top-posts",
+    "baseUrl": "http://mfp-alb-loadbalancer-188210617.us-west-2.elb.amazonaws.com/api",
     "getLists":"/lists",
-    "postList":"/lists",
-    "patchPosts":"/posts",
-    "createPost":"/posts",
-    "getPostsForAList":"/lists/id/posts",
-    "sharedListPosts":"/lists/id/sharedposts",
-    "patchUsers":"/users",
-    "followedPosts":"/posts/followed-posts",
-    "patchList":"/lists"
+    "postList":"/lists"
 }
