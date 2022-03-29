@@ -1,9 +1,9 @@
-name: Production Build
+name: Dev Build To S3
 on:
   pull_request:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
