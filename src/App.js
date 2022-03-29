@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function App() {
 
-
+  //setting state variables
   const [state, setState] = useState("");
   const [result, setResult] = useState("");
   const [items, setItems] = useState([]);
