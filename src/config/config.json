@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://mfp-alb-loadbalancer-********.us-west-2.elb.amazonaws.com/api",
+    "baseUrl": "http://mfp-alb-loadbalancer-075760899250.us-west-2.elb.amazonaws.com/api",
     "getLists":"/lists",
     "postList":"/lists"
 }
