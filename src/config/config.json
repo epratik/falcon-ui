@@ -1,5 +1,5 @@
 {
-    "baseUrl": "http://mfp-alb-loadbalancer-075760899250.us-west-2.elb.amazonaws.com/api",
+    "baseUrl": "https://d1s29v6e0cs9vv.cloudfront.net/api",
     "getLists":"/lists",
     "postList":"/lists"
 }
