@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://d1s29v6e0cs9vv.cloudfront.net/api",
+    "baseUrl": "https://********.cloudfront.net/api",
     "getLists":"/lists",
     "postList":"/lists"
 }
